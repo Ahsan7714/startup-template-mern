@@ -1,0 +1,9 @@
+/* Your Tailwind CSS file or inline styles */
+.slick-arrow.slick-next {
+    display: none !important;
+  }
+  @media (max-width: 767px) {
+    .slick-hide-next .slick-next {
+      display: none;
+    }
+  }
