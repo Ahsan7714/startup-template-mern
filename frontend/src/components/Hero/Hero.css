@@ -1,0 +1,217 @@
+.hero .hero_image{
+height: 90vh;
+width: 100%;
+object-fit: cover;
+}
+.instagram_carasoule_section {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    position: relative;
+    margin: 20px auto;
+}
+.instagram_carasoule_section h1{
+    font-family: 'Inter', sans-serif    ;
+font-size: 40px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+background: linear-gradient(90deg, #3F691F 0%, #AAD56C 51.93%, #3F691F 102.24%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-align: center;
+margin: 10px auto;
+margin-bottom: 30px;
+} 
+.instagram_carasoule_section img{
+    width: 23.9vw;
+    height: 400px;
+    object-fit: cover;
+    margin-left: 5px;
+}
+
+.hero .instagram_card{
+    position: absolute;
+    top: 56%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid var(--Pale-Green, #E8F6D3);
+    background: #FFF;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 481px;
+height: 250px;
+
+}
+.hero .instagram_card img{
+    width: 57.592px;
+    height: 56.418px;
+}
+.hero .instagram_card .card_container{
+    display: flex;
+    gap: 30px;
+    padding: 10px 20px;
+}
+.hero .instagram_card .card_container .right{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.hero .instagram_card .card_container .right .right_top{
+    font-family: 'Inter', sans-serif    ;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #000000;
+}
+.hero .instagram_card .card_container .right .right_top button{
+    background-color: rgb(239, 239, 239);
+    padding: 8px 10px;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.hero .instagram_card .card_container .right .right_bottom {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.hero .instagram_card h2{
+    color: #000;
+
+font-family: "Inter", sans-serif;
+font-size: 32px;
+font-style: normal;
+font-weight: 300;
+text-align: center;
+line-height: normal;
+margin-bottom: 30px;
+}
+.special{
+    color: var(--Lighter-green, #7EB631);
+    
+}
+
+@media screen and (max-width:972px) {
+    .instagram_carasoule_section img{
+        width: 95%;
+        height: 400px;
+        object-fit: cover;
+        margin-left: 5px;
+    }
+    
+}
+@media screen and (max-width:458px) {
+    .instagram_carasoule_section img{
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        margin-left: 5px;
+    }
+    .instagram_carasoule_section .instagram_card{
+        width: 250px ;
+        height: 250px;
+    }
+    .instagram_carasoule_section .instagram_card h2{
+        font-size: 20px ;
+        margin-bottom: 10px;
+    }
+    .instagram_carasoule_section .instagram_card .card_container{
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        font-size: 10px ;
+    }
+    .instagram_carasoule_section .instagram_card .card_container .right{
+        gap: 10px;
+    }
+    .instagram_carasoule_section .instagram_card .card_container .right .right_top{
+        gap: 10px;
+        font-size: 10px ;
+    }
+    .instagram_carasoule_section .instagram_card .card_container .right .right_top button{
+        font-size: 10px ;
+    }
+    .instagram_carasoule_section .instagram_card .card_container .right .right_bottom {
+        font-size: 10px ;
+        gap: 10px;
+    }
+    .instagram_carasoule_section h1{
+        font-size: 20px ;
+    }
+
+}
+/* Specs responsiveness */
+@media screen and (max-width: 786px) {
+    .specs_container{
+        flex-direction: column;
+        gap: 20px;
+    }
+    .specs_container .specs{
+        width: 100%;
+    }
+    .specs_container .specs .specs_image{
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+    }
+    .specs_container .specs .specs_content{
+        width: 100%;
+        padding: 20px;
+    }
+    .specs_container .specs .specs_content h1{
+        font-size: 20px;
+    }
+    .specs_container .specs .specs_content p{
+        font-size: 14px;
+    }
+    .specs_container .specs .specs_content button{
+        font-size: 14px;
+    }
+    .specs_container .specs .specs_content .specs_content_bottom{
+        font-size: 14px;
+    }
+    .specs_container .specs .specs_content .specs_content_bottom .specs_content_bottom_left{
+        font-size: 14px;
+    }
+    .specs_container .specs .specs_content .specs_content_bottom .specs_content_bottom_right{
+        font-size: 14px;
+    }
+    .specs_container .specs .specs_content .specs_content_bottom .specs_content_bottom_right button{
+        font-size: 14px;
+    }
+    .specs_container .specs .specs_content .specs_content_bottom .specs_content_bottom_right .specs_content_bottom_right_right{
+        font-size: 14px;
+    }
+    .specs_container .specs .specs_content .specs_content_bottom .specs_content_bottom_right .specs_content_bottom_right_right button{
+        font-size: 14px;
+    }
+    .specs_container .specs .specs_content .specs_content_bottom .specs_content_bottom_right .specs_content_bottom_right_right .specs_content_bottom_right_right_right{
+        font-size: 14px;
+    }
+    .specs_container .specs .specs_content .specs_content_bottom .specs_content_bottom_right .specs_content_bottom_right_right .specs_content_bottom_right_right_right button{
+        font-size: 14px;
+    }
+    .specs_container .specs .specs_content .specs_content_bottom .specs_content_bottom_right .specs_content_bottom_right_right .specs_content_bottom_right_right_right .specs_content_bottom_right_right_right_right{
+        font-size: 14px;
+    }
+    .specs_container .specs .specs_content .specs_content_bottom .specs_content_bottom_right .specs_content_bottom_right_right .specs_content_bottom_right_right_right .specs_content_bottom_right_right_right_right button{
+        font-size: 14px;
+    }
+}
+

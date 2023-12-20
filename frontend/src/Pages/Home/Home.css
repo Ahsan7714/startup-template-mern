@@ -1,0 +1,638 @@
+.about_us{
+    margin-top: 80px;
+}
+.about_us h1{
+    color: var(--Dark-Green, #3F691F);
+font-family: The Seasons;
+font-size: 60px;
+font-style: normal;
+line-height: normal;
+text-align: center;
+font-weight: 500;
+}
+.about_us p{
+    font-family: "Inter", sans-serif;
+    color: #000000f0;
+    text-align: center;
+    width: 76%;
+    margin: 25px auto;
+text-align: center;
+font-size: 20px;
+font-style: normal;
+font-weight: 300;
+
+}
+.specs_container{
+    display: flex;
+    margin: 0px auto;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+}
+.explore_menu{
+    width: 95%;
+    margin-top: 160px ;
+    float: right;
+
+}
+.explore_menu .main_heading{
+    color: var(--Dark-Green, #3F691F);
+
+font-family:"Inter", sans-serif;
+font-size: 40px;
+font-weight: 800;
+}
+.explore_menu .menu_container{
+    background-color: #87A972;
+    margin-top: 200px;
+    /* use a grid system and display only two items once in a row */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    position: relative;
+    padding-bottom: 100px;
+
+    
+}
+.explore_menu .menu_container .menu_item{
+    width: 55%;
+margin: 15px auto;
+    transform: translateY(-100px);
+    position: relative;
+    overflow: hidden;
+}
+.explore_menu .menu_container .menu_item img{
+    object-fit: cover;
+}
+.explore_menu .menu_container .menu_item .text{
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    transform: translate(-50%,-50%);
+    color: #FFF;
+width: 100%;
+text-align: center;
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+font-family: "Inter",sans-serif;
+font-size: 60px;
+text-transform: uppercase;
+font-style: normal;
+font-weight: 850;
+line-height: normal;
+text-align: center;
+}
+.explore_menu .menu_container .menu_item .hover_button{
+    position: absolute;
+    top: 65%;
+    left: -15%;
+    transform: translate(-50%,-50%);
+    color: #4b831f;
+    background-color:rgb(161, 200, 137) ;
+    
+    padding: 6px 14px;
+
+    border-radius: 20px;
+text-align: center;
+
+}
+.explore_menu .menu_container .menu_item:hover .hover_button{
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition:all 0.6s;
+}
+.explore_menu .menu_container .menu_item:hover .text{
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition:all 0.6s;
+}
+.explore_menu .view_menu_btn{
+    background-color: white;
+    color: #3F691F;
+    padding: 15px 40px;
+    width: fit-content;
+    border-radius: 30px;
+    margin: 0px auto;
+    font-size: 20px;
+ float: right;
+ margin-top: -30px;
+ margin-right: 120px;
+}
+.mobile_app_intro{
+    width: 100%;
+    display: block;
+    margin-top: 200px !important; 
+
+}
+.mobile_app_container img{
+height: 500px;
+width: 400px;
+object-fit: contain;
+}
+.mobile_app_container .content h1{
+    color: var(--Dark-Green, #3F691F);
+font-family: The Seasons;
+font-size: 60px;
+font-style: normal;
+}
+.mobile_app_container .content p{
+    font-family: "Inter", sans-serif;
+    color: #000000f0;
+    text-align: center;
+font-size: 20px;
+font-style: normal;
+font-weight: 300;
+text-align: left;
+}
+
+.join_us_newsletter{
+    margin: 200px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+}
+.join_us_newsletter h1{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 900;
+    font-size: 43px;
+    color: var(--Dark-Green, #3F691F);
+}
+.join_us_newsletter p{
+    font-family: "Inter", sans-serif;
+font-size: 24px;
+font-weight: 300;
+line-height: 35px;
+letter-spacing: 0em;
+text-align: center;
+
+}
+.join_us_newsletter form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 430px;
+    margin-top: 60px; 
+}
+.join_us_newsletter form input{
+    padding-left: 20px;
+    outline: none;
+    border: 1px solid #BDBDBD;
+    font-family: "Inter", sans-serif;   
+    font-size: 20px;
+    font-weight: 300;
+height: 55px;
+width: 100%;
+
+}
+.join_us_newsletter form button{
+    background-color: var(--Dark-Green, #3F691F);
+    color: #FFF;
+    padding: 15px 40px;
+    width: fit-content;
+    border-radius: 5px;
+    margin: 0px auto;
+    font-size: 20px;
+    font-family: "Inter", sans-serif;   
+    font-size: 20px;
+    font-weight: 600;
+    height: 55px;
+    width: 100%;
+    border: none;
+    outline: none;
+}
+.instafeed {
+    margin-top: 200px;
+}
+.instafeed .mainHeading{
+    color: var(--Dark-Green, #3F691F);
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-size: 60px;
+font-style: normal;
+line-height: normal;
+text-align: center;
+font-weight: 900;
+display: flex;
+justify-content: center;
+gap: 40px;
+margin: 50px 0px;
+
+}
+.feeds{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+}
+
+.feeds .feed{
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+}
+.feed img{
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+}
+.feeds .feed .content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    text-align: center;
+    background-color: #95af94a8;
+    height: 100%;
+    color: black;
+    padding: 0px 20px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    transition: 0.5s  ease-in-out;
+    opacity: 0;
+}
+.feeds .feed .content .info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.feeds .feed .content .info .likes{
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    gap: 5px;
+}
+.feeds .feed .content .info .likes .like_icon{
+    font-size: 24px;
+}
+.feeds .feed .content .info .comments{
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+}
+.feeds .feed .content .info .comments .comment_icon{
+    font-size: 24px;
+}
+.feeds .feed .content .caption{
+    font-family: "Inter",sans-serif;
+font-size: 15px;
+font-weight: 400;
+line-height: 22px;
+letter-spacing: 0em;
+text-align: center;
+margin-top: 10px;
+
+}
+.feeds .feed:hover .content{
+    opacity: 1;
+    align-items: center;
+}
+
+/* / menu responsivenss */
+@media screen and (max-width: 1200px){
+    .explore_menu .menu_container{
+        grid-template-columns: repeat(1, 1fr);
+        border-bottom-left-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+    .explore_menu .view_menu_btn{
+        margin-top: 30px;
+        margin-right: 0px;
+        float: none;
+    }
+}
+@media screen and (max-width: 786px){
+    .specs_container{
+        flex-direction: column;
+    }
+    .specs_container .specs{
+        width: 100%;
+    }
+    .specs_container .specs img{
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+    }
+    .specs_container .specs .content{
+        width: 100%;
+        margin-top: 30px;
+    }
+    .specs_container .specs .content h1{
+        font-size: 40px;
+    }
+    .specs_container .specs .content p{
+        font-size: 15px;
+    }
+    .explore_menu{
+        margin-top: 100px;
+    }
+    .explore_menu .main_heading{
+        font-size: 30px;
+    }
+    .explore_menu .menu_container{
+        margin-top: 100px;
+    }
+    .explore_menu .menu_container .menu_item{
+        width: 80%;
+    }
+    .explore_menu .menu_container .menu_item img{
+        width: 90% !important;
+        height: 100% !important;
+        margin: 0px auto;
+    }
+    .explore_menu .menu_container .menu_item .text{
+        font-size: 40px;
+    }
+    .explore_menu .menu_container .menu_item .hover_button{
+        font-size: 15px;
+    }
+    .explore_menu .view_menu_btn{
+        margin-top: 30px;
+        margin-right: 30px;
+        float: none;
+    }
+    .mobile_app_intro{
+        margin-top: 100px !important; 
+        text-align: center;
+    }
+    .mobile_app_container{
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        text-align: center;
+    }
+    .mobile_app_container img{
+        width: 100%;
+        height: 300px;
+    }
+    .mobile_app_container .content{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .mobile_app_container .content h1{
+        font-size: 40px;
+    }
+    .mobile_app_container .content p{
+        font-size: 15px;
+        text-align: center;
+    }
+    .join_us_newsletter{
+        margin: 100px 0px;
+    }
+    .join_us_newsletter h1{
+        font-size: 30px;
+    }
+    .join_us_newsletter p{
+        font-size: 15px;
+    }
+    .join_us_newsletter form{
+        width: 70%;
+    }
+    .join_us_newsletter form input{
+        width: 100%;
+    }
+    .join_us_newsletter form button{
+        width: 100%;
+    }
+    .instafeed{
+        margin-top: 100px;
+    }
+    .instafeed .mainHeading{
+        font-size: 40px;
+        gap: 20px;
+    }
+    .feeds{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .feeds .feed{
+        width: 100%;
+    }
+    .feeds .feed img{
+        height: 300px;
+    }
+    .feeds .feed .content{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 100%;
+        text-align: center;
+        background-color: #95af94a8;
+        height: 100%;
+        color: black;
+        padding: 0px 20px;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        transition: 0.5s  ease-in-out;
+        opacity: 0;
+    }
+    .feeds .feed .content .info{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    .feeds .feed .content .info .likes{
+        display: flex;
+        align-items: center;
+        font-size: 17px;
+        gap: 5px;
+    }
+    .feeds .feed .content .info .likes .like_icon{
+        font-size: 24px;
+    }
+    .feeds .feed .content .info .comments{
+        display: flex;
+        align-items: center;
+        font-size: 17px;
+    }
+    .feeds .feed .content .info .comments .comment_icon{
+        font-size: 24px;
+    }
+    .feeds .feed .content .caption{
+        font-size: 15px;
+    }
+    .feeds .feed:hover .content{
+        opacity: 1;
+        align-items: center;
+    }
+}
+@media screen and (max-width: 480px){
+    .specs_container{
+        flex-direction: column;
+    }
+    .specs_container .specs{
+        width: 100%;
+    }
+    .specs_container .specs img{
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+    }
+    .specs_container .specs .content{
+        width: 100%;
+        margin-top: 30px;
+    }
+    .specs_container .specs .content h1{
+        font-size: 40px;
+    }
+    .specs_container .specs .content p{
+        font-size: 15px;
+    }
+    .explore_menu{
+        margin: 0px auto;
+        margin-top: 100px;
+        width: 100%;
+    }
+    .remove_in_mobile{
+        width: 0px !important;
+    }
+    .explore_menu .main_heading{
+        font-size: 30px;
+        margin-bottom: 150px;
+        margin-left: 30px;
+    }
+    .explore_menu .menu_container{
+        margin-top: 100px;
+    }
+    .explore_menu .menu_container .menu_item{
+        width: 100%;
+    }
+    .explore_menu .menu_container .menu_item img{
+        width: 90% !important;
+        margin: 0px auto;
+    }
+    .explore_menu .menu_container .menu_item .text{
+        font-size: 40px;
+    }
+    .explore_menu .menu_container .menu_item .hover_button{
+        font-size: 15px;
+    }
+    .explore_menu .view_menu_btn{
+        margin-top: 30px;
+        margin-right: 30px;
+        float: none;
+    }
+    .mobile_app_intro{
+        margin-top: 100px !important; 
+    }
+    .mobile_app_container{
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        text-align: center;
+    }
+    .mobile_app_container img{
+        width: 100%;
+        height: 300px;
+    }
+    .mobile_app_container .content{
+        width: 100%;
+    }
+    .mobile_app_container .content h1{
+        font-size: 40px;
+        width: 100%;
+        text-align: center !important;
+        
+    }
+    .mobile_app_container .content p{
+        font-size: 15px;
+        text-align: center;
+    }
+    .join_us_newsletter{
+        margin: 100px 0px;
+    }
+    .join_us_newsletter h1{
+        font-size: 30px;
+    }
+    .join_us_newsletter p{
+        font-size: 15px;
+    }
+    .join_us_newsletter form{
+        width: 100%;
+    }
+    .join_us_newsletter form input{
+        width: 80%;
+    }
+    .join_us_newsletter form button{
+        width: 80%;
+    }
+    .instafeed{
+        margin-top: 100px;
+    }
+    .instafeed .mainHeading{
+        font-size: 40px;
+        gap: 20px;
+    }
+    .feeds{
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+    }
+    .feeds .feed{
+        width: 100%;
+    }
+    .feeds .feed img{
+        height: 300px;
+    }
+    .feeds .feed .content{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 100%;
+        text-align: center;
+        background-color: #95af94a8;
+        height: 100%;
+        color: black;
+        padding: 0px 20px;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        transition: 0.5s  ease-in-out;
+        opacity: 0;
+    }
+    .feeds .feed .content .info{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    .feeds .feed .content .info .likes{
+        display: flex;
+        align-items: center;
+        font-size: 17px;
+        gap: 5px;
+    }
+    .feeds .feed .content .info .likes .like_icon{
+        font-size: 24px;
+    }
+    .feeds .feed .content .info .comments{
+        display: flex;
+        align-items: center;
+        font-size: 17px;
+    }
+    .feeds .feed .content .info .comments .comment_icon{
+        font-size: 24px;
+    }
+    .feeds .feed .content .caption{
+        font-size: 15px;
+    }
+    .feeds .feed:hover .content{
+        opacity: 1;
+        align-items: center;
+    }
+}
