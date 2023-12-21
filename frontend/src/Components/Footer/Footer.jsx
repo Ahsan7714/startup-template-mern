@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <div className='bg-[#3f691f] text-white'>
         <div className='pt-[6%] px-[10%] flex flex-col gap-5'>
-            <img src={flogo} alt="" className='h-[80px] w-[170px]'/>
+            <img src={flogo} alt="" className='h-[80px] w-[170px] object-contain'/>
             <div className='flex flex-col lg:flex-row border-t-[1px] border-[#ffffffa5] gap-20 lg:gap-40'>
                 <div className='flex flex-col gap-1 pt-7 pl-12 pr-[16%]'>
                     <p className='text-[24px]  font-extralight'>CONTACT</p>
@@ -28,8 +28,9 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className='py-10'>
+            <div className='pt-10 '>
                 <p className='flex items-center justify-center text-[14px] text-[#ffffffdc] font-light text-center'>©Copyright 2019-2024 R&B Tea - All Rights Reserved. Home | Accessibility</p>
+                <p className='align-middle text-center mt-4 mb-4 '>Developed By <a href="https://www.fiverr.com/muhammadsarw200/do-full-stack-website-development-f79a" className='uppercase ' target='blank'> Perfect Solutions</a></p>
             </div>
         </div>
     </div>

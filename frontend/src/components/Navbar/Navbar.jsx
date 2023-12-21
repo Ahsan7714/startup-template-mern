@@ -38,7 +38,7 @@ const Navbar = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink onClick={()=>handleSidebar()} to="/mobile/app">
+                    <NavLink onClick={()=>handleSidebar()} to="/mobile-app">
                     Mobile App
                     </NavLink>
                 </li>
@@ -105,7 +105,7 @@ const Navbar = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink onClick={()=>handleSidebar()} to="/mobile/app">
+                    <NavLink onClick={()=>handleSidebar()} to="/mobile-app">
                     Mobile App
                     </NavLink>
                 </li>
