@@ -14,17 +14,6 @@ const mongoose = require('mongoose');
         required:true,
         default:"franchise",
     },
-    franchise:{
-      name:{
-        type:String,
-        required:true,
-      },
-      phone:{
-        type:String,
-        required:true,
-      },
-      
-    },
 })
 
 userSchema.pre("save",async function(next){

@@ -8,6 +8,7 @@ import MobileApp from './Pages/MobileApp/MobileApp'
 import Navbar from './components/Navbar/Navbar'
 import MenuPage from './Pages/MenuPage/MenuPage'
 import DrinkSeriesPage from "./Pages/DrinkSeriesPage/DrinkSeriesPage"
+import Locations from './Pages/Locations/Locations.jsx'
 function App() {
 
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path='/mobile-app' element={<MobileApp/>} />
       <Route path='/menu' element={<MenuPage/>} />
       <Route path='/menu/:drink' element={<DrinkSeriesPage/>} />
+      <Route path='/locations' element={<Locations/>} />
 
     </Routes>
     <Footer/>

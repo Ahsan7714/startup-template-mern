@@ -1,9 +1,6 @@
 const mongoose=require("mongoose")
 const locationSchema=mongoose.Schema({
-    address:{
-        type:String,
-        required:true,
-    },
+    
     name:{
         type:String,
         required:true,
@@ -16,15 +13,19 @@ const locationSchema=mongoose.Schema({
         lng:{
             type:Number,
             required:true,
-        }
+        },
+        address:{
+            type:String,
+            required:true,
+        },
     },
-    menuLink:{
+    thirdPartyLink:{
         type:String,
         required:true,
     },
     franchise:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Franchise",
+        ref:"User",
         required:true,
     },
 })
