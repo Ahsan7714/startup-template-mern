@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import Sidebar from "../../Components/Dashboard/Sidebar/Sidebar";
+import * as XLSX from 'xlsx';
 
 const AllNewsletter = () => {
   const newsletter = [
@@ -28,38 +29,11 @@ const AllNewsletter = () => {
     // Add more dummy data objects as needed
   ];
 
-  const svgRef = useRef(null);
-
-  const downloadSvg = () => {
-    const svgString = generateSvg();
-    const blob = new Blob([svgString], { type: 'image/svg+xml' });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'newsletter.svg';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const generateSvg = () => {
-    const svgContent = `
-      <svg xmlns="http://www.w3.org/2000/svg">
-        <rect width="100%" height="100%" fill="#fff"/>
-        <text x="10" y="30" font-size="18" font-family="Arial" fill="#000">
-          Newsletter Emails:
-        </text>
-        ${newsletter.map((item, index) => `
-          <text x="10" y="${60 + index * 30}" font-size="16" font-family="Arial" fill="#000">
-            ${item.email}
-          </text>
-        `).join('')}
-      </svg>
-    `;
-
-    return new XMLSerializer().serializeToString(new DOMParser().parseFromString(svgContent, 'text/xml'));
+  const downloadExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(newsletter);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Newsletter');
+    XLSX.writeFile(workbook, 'newsletter.xlsx');
   };
 
   return (
@@ -88,10 +62,10 @@ const AllNewsletter = () => {
           </table>
           <div className="mt-8">
             <button
-              onClick={downloadSvg}
+              onClick={downloadExcel}
               className="bg-[#3f691f] text-white py-2 px-5 font-semibold rounded-lg border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300"
             >
-              Download
+              Download Excel
             </button>
           </div>
         </div>
