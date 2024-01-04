@@ -1,6 +1,6 @@
 const catchAsyncError = require("../middleware/catchAsyncError")
 const CustomError = require("../utils/errorhandler")
-
+const CommingSoonFranchise = require("../models/commingSoonModel")
 
 exports.getAllCommingSoonFranchise=catchAsyncError(async(req,res,next)=>{
     const franchise=await CommingSoonFranchise.find()
@@ -19,7 +19,7 @@ exports.deleteCommingSoonFranchise=catchAsyncError(async(req,res,next)=>{
     if(!franchise){
         return next(new CustomError("Franchise not found",404))
     }
-    await franchise.remove()
+    await CommingSoonFranchise.findByIdAndDelete(id)
     res.status(200).json({success:true,message:"Franchise deleted successfully"})
 })
 

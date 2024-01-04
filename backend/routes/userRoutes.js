@@ -8,9 +8,13 @@ const {addSeriesToMenu,addDrinkToSeriesInMenu,getAllSeriesAndDrinksInMenu,getAll
 const { isAuthenticatedUser } = require('../middleware/auth');
 const { searchLocation } = require('../controllers/locationController');
 const { addNewsLetter } = require('../controllers/newsLetterController');
+const { getAllCommingSoonFranchise } = require('../controllers/commingSoonController');
+const { addRequest } = require('../controllers/franchiseRequestController');
 
 // franchise 
 router.route('/login').post(login)
+
+
 
 
 // adding  series to menu
@@ -24,6 +28,9 @@ router.route("/menu/series").get(isAuthenticatedUser,getAllSeriesInMenu)
 
 // getting all drinks of a series
 router.route("/menu/series/:seriesId/drinks").get(getAllDrinksInSeriesInMenu)
+
+// ADMIN MENU { DONE }
+
 // get all series in admin menu
 router.route("/menu/admin/series").get(getAdminMenu)
 // delete a drink 
@@ -39,8 +46,13 @@ router.route("/newsletter/add").post(addNewsLetter)
 
 // Logout 
 router.route("/logout").post(logout)
-
+router.route("/franchise/request").post(addRequest  )
 
 router.route("/contact-us").post(contactUs)
 
+// get own menu
+router.route("/menu/own").get(isAuthenticatedUser,getOwnMenu)
+
+// comming soon request 
+router.route("/comming").get(getAllCommingSoonFranchise)
 module.exports = router;

@@ -124,7 +124,7 @@ exports.deleteFranchise=catchAsyncError(async(req,res,next)=>{
     if(!user){
         return next(new CustomError("Franchise not found",404))
     }
-    await user.remove()
+    await User.findByIdAndDelete(id)
     res.status(200).json({success:true,message:"Franchise deleted successfully"})
 })
 
@@ -332,18 +332,12 @@ exports.contactUs=catchAsyncError(async(req,res,next)=>{
         <div class="container">
 
             <h2>Contact Us</h2>
-
-            <p>Dear R&B Tea,</p>
-
-            <p>You have received a new message from your website contact form.</p>
-            <p>Here are the details:</p>
-            <ul>
-                <li><strong>Name:</strong> ${name}</li>
-                <li><strong>Email:</strong> ${email}</li>
-            </ul>
-            <p>Message:</p>
-            <p>${message}</p>
-
+            <p>We recieved a message from your side  </p>
+            <p>Message: ${message}</p>
+            <p>From: ${name}</p>
+            <p>Email: ${email}</p>
+            <p>Thank you for contacting us. We will get back to you as soon as possible.</p>
+            
             <footer>
                 <p>Best regards,<br>Your R&B Tea Franchise Team</p>
             </footer>
@@ -358,8 +352,9 @@ exports.contactUs=catchAsyncError(async(req,res,next)=>{
             subject:"Contact Us",
             message:emailTemplate
         })
-        res.status(200).json({success:true,message:`Email sent to ${user.email}`})
+        res.status(200).json({success:true,message:`Email sent to ${req.body.email}`})
     }catch(error){
+        console.log(error)
         return next(new CustomError("Email could not be sent",500))
     }
 }
@@ -370,7 +365,10 @@ exports.contactUs=catchAsyncError(async(req,res,next)=>{
 
 // get own menu 
 exports.getOwnMenu = catchAsyncError(async (req, res, next) => {
-    const menu = await Menu.findOne({ franchise: req.user._id });
+    const menu = await Menu.findOne({ franchise: req.user._id }).populate({
+        path: "series",
+        model: "Series",
+    })
     if (!menu) {
         return next(new CustomError("Menu not found", 404));
     }
