@@ -118,7 +118,7 @@ const AddDrinks = () => {
                   onChange={handleSeriesChange}
                   className="outline-none border text-[#000000b8] border-[#00000068] bg-white rounded-md w-[160px] h-[43px]  px-2 placeholder:text-[#000000b8]"
                 >
-                  <option value="" disabled>Select a drink</option>
+                  <option value="" disabled>Select Series</option>
                   {drinks.map((drink, index) => (
                     <option key={index} value={drink.name}>
                       {drink.name}

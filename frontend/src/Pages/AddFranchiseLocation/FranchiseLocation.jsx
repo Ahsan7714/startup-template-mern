@@ -159,6 +159,23 @@ const FranchiseLocation = () => {
                 </div>
               </div>
               <div className="flex justify-between">
+              <div className="flex flex-col gap-2 ">
+                  <label
+                    htmlFor="thirdPartyLink"
+                    className="text-[#000000e4] text-[16px]"
+                  >
+                    Third Party link
+                  </label>
+                  <input
+                    type="text"
+                    name="thirdPartyLink"
+                    required
+                    value={formData.thirdPartyLink}
+                    onChange={handleInputChange}
+                    placeholder="Enter link"
+                    className=" outline-none border border-[#00000068]  text-[#000000b8]  bg-white rounded-md w-[330px] py-2 px-2 placeholder:text-[#000000b8]"
+                  />
+                </div>
                 <div className="flex flex-col gap-2 ">
                   <label
                     htmlFor="thirdPartyLink"
@@ -176,15 +193,20 @@ const FranchiseLocation = () => {
                     className=" outline-none border border-[#00000068]  text-[#000000b8]  bg-white rounded-md w-[330px] py-2 px-2 placeholder:text-[#000000b8]"
                   />
                 </div>
-                <div className="flex flex-col  mt-8">
+
+              </div>
+              <div className="flex justify-between">
+              <div className="flex flex-col  mt-8">
                   <button
                     type="submit"
-                    className="bg-white text-[#3f691f] py-2 px-5 font-semibold rounded-lg border hover:border-white hover:bg-[#3f691f] hover:text-white duration-300"
+                    className="bg-[#3f691f] text-white py-2 px-5 font-semibold rounded-lg border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300"
                   >
                     Add Location
                   </button>
                 </div>
+
               </div>
+
             </div>
           </form>
         </div>

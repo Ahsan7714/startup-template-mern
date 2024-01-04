@@ -3,8 +3,9 @@ import img1 from "../../assets/img1.png";
 import img2 from "../../assets/img2.png";
 import img3 from "../../assets/img3.png";
 import img4 from "../../assets/img4.png";
-import Slider from "react-slick";
 import './Carasoul.css'
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -28,33 +29,48 @@ const Carasoul = () => {
           },
         
       ];
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        nextArrow: <button style={{ display: 'none' }} />,
-        responsive: [
-            {
-              breakpoint: 768, // for screens smaller than 768px
-              settings: {
-                slidesToShow: 3,
-              },
-            },
-          ],
+      const responsive = {
+        desktop: {
+          breakpoint: { max: 3000, min: 1024 },
+          items: 4,
+          slidesToSlide: 1 // optional, default to 1.
+        },
+        tablet: {
+          breakpoint: { max: 1024, min: 464 },
+          items: 3,
+          slidesToSlide: 1 // optional, default to 1.
+        },
+        mobile: {
+          breakpoint: { max: 464, min: 0 },
+          items: 1,
+          slidesToSlide: 1 // optional, default to 1.
+        }
       };
       return (
-        <div className='w-full '>
-          <Slider {...settings} className="slick-hide-next">
-            {data.map((d) => (
-              <div key={d} className="bg-white h-[0px] text-black ">
-                <div className='  flex justify-center items-center gap-4 '>
-                  <img src={d.img} alt="" className="h-[200px] w-[250px] lg:h-[300px] lg:w-[300px] rounded-sm flex gap-4 px-1 object-cover"/>
-                </div>
-              </div>
-            ))}
-          </Slider>
+        <div className='w-full justify-center items-center '>
+        <Carousel
+  swipeable={false}
+  draggable={false}
+  showDots={false}
+  showArrows={true}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlay={false}
+  autoPlaySpeed={3000}
+  keyBoardControl={true}
+  customTransition="all 1s"
+  transitionDuration={500}
+  containerClass="carousel-container"
+  deviceType={responsive.deviceType}
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel-item-padding-40-px "
+>
+{data.map((item, index) => (
+  <img key={index} src={item.img} alt={`slide-${index}`} className='h-[320px] lg:w-[360px] px-1 object-cover w-full ' />
+))}
+
+</Carousel>
           
         </div>
       );

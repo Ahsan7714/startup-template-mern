@@ -8,6 +8,7 @@ const Dashbaord = () => {
     email: "",
     phone: "",
     ownerName: "",
+    address:'',
     password:'',
   });
   const [franchiseList, setFranchiseList] = useState([
@@ -105,7 +106,7 @@ const Dashbaord = () => {
               <div className="flex flex-1 gap-16">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="" className="text-[#000000e4] text-[16px]">
-                    Phone{" "}
+                    Phone Number
                   </label>
                   <input
                     type="number"
@@ -131,6 +132,19 @@ const Dashbaord = () => {
                 </div>
               </div>
               <div className="flex flex-1 gap-16">
+              <div className="flex flex-col gap-2">
+                  <label htmlFor="" className="text-[#000000e4] text-[16px]">
+                   Franchise Address
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={franchiseData.address}
+                    onChange={handleInputChange}
+                    placeholder="Enter Franchise address"
+                    className=" outline-none border text-[#000000b8] border-[#00000068] bg-white rounded-md w-[330px] py-2 px-2 placeholder:text-[#000000b8]"
+                  />
+                </div>
                 <div className="flex flex-col gap-2">
                   <label htmlFor="" className="text-[#000000e4] text-[16px]">
                    Create Password
@@ -144,7 +158,9 @@ const Dashbaord = () => {
                     className=" outline-none border text-[#000000b8] border-[#00000068] bg-white rounded-md w-[330px] py-2 px-2 placeholder:text-[#000000b8]"
                   />
                 </div>
-                <div className="flex flex-1 flex-col gap-2 mt-8">
+
+              </div>
+              <div className="flex flex-1 flex-col gap-2 ">
                 <button
                 type="button"
                 onClick={handleAddFranchise}
@@ -153,7 +169,6 @@ const Dashbaord = () => {
                 Add Franchise
               </button>
                 </div>
-              </div>
 
             </form>
           </div>
@@ -173,8 +188,8 @@ const Dashbaord = () => {
             </thead>
             <tbody className="text-[14px] my-10 pb-8 rounded-lg">
               {franchiseList.map((franchise, index) => (
-                <tr key={index} >
-                  <td className="py-3">{franchise.name}</td>
+                <tr key={index} className="border-b border-[#0000001b]">
+                  <td className="py-5">{franchise.name}</td>
                   <td>{franchise.email}</td>
                   <td>{franchise.phone}</td>
                   <td>{franchise.ownerName}</td>

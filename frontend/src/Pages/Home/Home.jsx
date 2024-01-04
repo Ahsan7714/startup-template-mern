@@ -1,8 +1,37 @@
 import Hero from "../../components/Hero/Hero"
+import { useState } from "react";
 import './Home.css'
 import { FaRegHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
+import { useDispatch } from 'react-redux';
+import toast, { useToaster } from 'react-hot-toast';
+import { addNewsLetter } from "../../store/reducers/newsLetterReducers";
 const Home = () => {
+  const dispatch = useDispatch();
+  const toaster = useToaster();
+  const [email, setEmail] = useState('');
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    console.log(email);
+  
+    try {
+      // Dispatch the addNewsLetter action with the email
+      const response = await dispatch(addNewsLetter({ email }));
+  
+      // Check if the response indicates success
+      if (response.payload && response.payload.success) {
+        // Show success toast
+        toast.success('Successfully subscribed');
+      } else {
+        // Show error toast if the response does not indicate success
+        toast.error('Failed to subscribe. Please try again.');
+      }
+    } catch (error) {
+      // Show error toast if an exception occurs
+      toast.error('Failed to subscribe. Please try again.');
+    }
+  };
+  
   const menuItems=[
     "fruit tea",
     "stormy",
@@ -185,11 +214,15 @@ menuItems.map((item,index)=>{
     <div className="join_us_newsletter">
       <h1>Join our newsletter</h1>
       <p>For the latest launches, exclusive promotions, and insider news!</p>
-      <form >
-
-      <input type="email" placeholder="Email" />
-      <button>Subscribe</button>
-      </form>
+      <form onSubmit={handleSubscribe}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <button type="submit">Subscribe</button>
+        </form>
     </div>
     </div>
   )

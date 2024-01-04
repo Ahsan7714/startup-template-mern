@@ -16,7 +16,7 @@ const Sidebar = () => {
   return (
     <div className='bg-white shadow-2xl h-[100vh] fixed w-[19%] flex flex-col items-center py-4 gap-14'>
       <div>
-        <img src={logo} alt="" className='h-[50px] ml-3' />
+      <Link to="/"><img src={logo} alt="" className='h-[55px] ml-3' /></Link>
       </div>
       <div className='flex flex-col gap-5'>
         <Link

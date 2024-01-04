@@ -38,8 +38,8 @@ const Contact = () => {
         />
         <form
           onSubmit={submit}
-          className="flex flex-col items-center   gap-14 absolute top-[45%] sm:top-[40%] lg:top-[75%] px-[10%] sm:left-[18%] lg:left-[20%]"
-        >
+          className="flex flex-col items-center justify-center gap-14 absolute left-1/2 lg:top-[130%] top-[90%] transform -translate-x-1/2 -translate-y-1/2"
+          >
           <h1 className="text-[#3f691f] text-[40px] font-extrabold ">
             CONTACT US
           </h1>

@@ -1,39 +1,27 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from "../../Components/Dashboard/Sidebar/Sidebar";
 import * as XLSX from 'xlsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllNewsLetter, deleteAllNewsLetter } from "../../store/reducers/newsLetterReducers";
 
 const AllNewsletter = () => {
-  const newsletter = [
-    {
-      id: 1,
-      email: "google1231@gmail.com",
-    },
-    {
-      id: 2,
-      name: "Aqib Nawan Khan",
-      email: "google1231@gmail.com",
-      contact: "0218321383",
-    },
-    {
-      id: 3,
-      name: "Aqib Nawan Khan",
-      email: "google1231@gmail.com",
-      contact: "0218321383",
-    },
-    {
-      id: 4,
-      name: "Aqib Nawan Khan",
-      email: "google1231@gmail.com",
-      contact: "0218321383",
-    },
-    // Add more dummy data objects as needed
-  ];
+  const dispatch = useDispatch();
+  const newsletterList = useSelector((state) => state.newsletter.newsletterlist);
+
+  // Fetch all newsletters when the component mounts
+  useEffect(() => {
+    dispatch(getAllNewsLetter());
+  }, [dispatch]);
+  console.log('newsletterList:', newsletterList); // Add this line
 
   const downloadExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(newsletter);
+    const worksheet = XLSX.utils.json_to_sheet(newsletterList);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Newsletter');
     XLSX.writeFile(workbook, 'newsletter.xlsx');
+
+    // After downloading, delete all newsletters
+    dispatch(deleteAllNewsLetter());
   };
 
   return (
@@ -52,7 +40,7 @@ const AllNewsletter = () => {
               </tr>
             </thead>
             <tbody className="text-[14px] rounded-lg">
-              {newsletter.map((item, index) => (
+              {newsletterList.map((item, index) => (
                 <tr key={index} className="border-b border-[#00000041]">
                   <td className="py-4">{item.id}</td>
                   <td>{item.email}</td>
