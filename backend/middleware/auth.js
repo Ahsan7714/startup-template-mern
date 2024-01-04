@@ -1,29 +1,41 @@
 const catchAsyncError=require("./catchAsyncError")
-
 const jwt=require("jsonwebtoken")
 const User=require("../models/userModel")
 const CustomError = require("../utils/errorhandler")
-exports.isAuthenticatedUser=catchAsyncError(async(req,res,next)=>{
-    const {token}=req.cookies
-    if(!token){
-        return next(new CustomError("Please Login to access the resoures ",401))
+
+exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
+    const { token } = req.cookies;
+    // console.log(token);
+  
+    if (!token) {
+      return next(new CustomError("please login to access this recsource", 401));
     }
+  
+    try
+    {
+        console.log("1 getting here")
+        const decodedData =await jwt.verify(token,process.env.JWT_SECRET);
+        console.log("2 token get")
+console.log("3 getting user")
+    req.user = await User.findOne({_id:decodedData.id});
+    }catch(err){
+        return next(new CustomError("User not found with this id", 404));
+    }
+    next();
+  });
 
-    const decoded=await jwt.verify(token,process.env.JWT_SECRET)
+  exports.authorizeRoles = (...roles) => {
+    return async (req, res, next) => {
+        try {
+ 
 
-req.user=await User.findById({_id:decoded.id})
+            if (!roles.includes(req.user.role)) {
+                throw new CustomError(`Role: ${req.user.role} is not allowed to access this resource`, 403);
+            }
 
-next()
-
-})
-
-
-exports.authorizeRoles=(...roles)=>{
-    return (req,res,next)=>{
-        if(!roles.includes(req.user.role)){
-           return next(  new  CustomError(`Role: ${req.user.role} is not allowed to access this  resource`,403 )
-           )
+            next();
+        } catch (error) {
+            next(error); // Forward any errors to the error handling middleware
         }
-        next()
-    }
-}
+    };
+};

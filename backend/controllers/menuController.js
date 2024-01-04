@@ -7,41 +7,47 @@ const CustomError = require("../utils/errorhandler");
 
 // Controller for adding a series to the menu
 exports.addSeriesToMenu = catchAsyncError(async (req, res, next) => {
-  const {name,image,  franchiseId } = req.body;
-console.log(franchiseId)
-  const series = await Series.create({name,image,drinks:[],franchise:franchiseId});
+  const {name,image } = req.body;
+  const series = await Series.create({name,image,drinks:[],franchise:req.user._id});
   
-  const menu = await Menu.find({ franchise: franchiseId });
+  const menu = await Menu.find({ franchise: req.user._id });
   // add series to menu 
   if (menu.length === 0) {
-    await Menu.create({ series: [series._id], franchise: franchiseId });
+    await Menu.create({ series: [series._id], franchise: req.user._id });
   } else {
     await Menu.findOneAndUpdate(
-      { franchise: franchiseId },
+      { franchise: req.user._id },
       { $push: { series: series._id } },
       { new: true }
     );
   }
-
 
   res.status(201).json({ success: true, menu });
 });
 
 // Controller for adding a drink to a series in the menu
 exports.addDrinkToSeriesInMenu = catchAsyncError(async (req, res, next) => {
-  const {name,image, seriesId, franchiseId, } = req.body;
+  const {name,image, seriesId,  } = req.body;
+  const franchiseId = req.user._id;
 
 const drink=await Drink.create({name,image,series:seriesId,franchise:franchiseId})
 
-  const menu = await Menu.findOne({ franchise: franchiseId });
+  const menu = await Menu.findOne({ franchise: franchiseId }).populate({
+    path: "series",
+    model: "Series",
+    populate: {
+      path: "drinks",
+      model: "Drink",
+    },
+  })
+    ;
   // update the series in the menu
   const series = await Series.findOneAndUpdate(
     { _id: seriesId },
     { $push: { drinks: drink._id } },
     { new: true }
   );
-  await series.save();
-  await menu.save();
+
 
   res.status(201).json({ success: true, menu });
 });
@@ -119,7 +125,6 @@ exports.getAdminMenu=catchAsyncError(async(req,res,next)=>{
   const menu=await Menu.findOne({franchise:admin._id}).populate({
     path: "series",
     model: "Series",
-    
   });
 
 if(!menu){
