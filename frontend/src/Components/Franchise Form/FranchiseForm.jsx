@@ -27,16 +27,16 @@ const FranchiseForm = () => {
   };
   return (
     <div className=" relative mb-[24%] md:mb-[30%] lg:mb-[10%]">
-      <div className="bg-[#87a972] text-white w-[70%] h-[100vh] flex justify-end rounded-e-[20px]">
+      <div className="bg-[#87a972] text-white w-[70%] h-[100vh] flex justify-end rounded-e-[20px] relative">
         <div className=" py-20 lg:px-32 text-center">
           <h1 className="text-[35px]">Interested in Franchising?</h1>
           <p className="text-[20px]">Contact us below</p>
         </div>
       </div>
-      <div className="absolute top-[30%] lg:top-[40%] left-[6%] lg:left-[15%]">
-        <img src={bg} alt="" className="h-[95vh]  rounded-xl  lg:w-full" />
+      <div className="absolute top-[30%] lg:top-[40%] left-7 lg:left-[20%] px-2 transform translate(-50%, -50%)">
+        <img src={bg} alt="" className="lg:h-fit h-[92vh]  rounded-xl w-[95%]  lg:w-[800px]" />
         <div className="absolute top-0">
-          <form onSubmit={submit} className="px-8 py-10 flex flex-col gap-5">
+          <form onSubmit={submit} className="px-8 pt-10 flex flex-col gap-5">
             <div className="flex flex-col lg:flex-row gap-5 lg:gap-10">
               <input
                 type="text"
@@ -45,7 +45,7 @@ const FranchiseForm = () => {
                 onChange={inputHandle}
                 value={state.name}
                 placeholder="Full Name"
-                className=" text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
+                className=" text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2  w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
               />
               <input
                 type="text"

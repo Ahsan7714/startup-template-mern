@@ -1,15 +1,17 @@
 import Hero from "../../components/Hero/Hero"
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import './Home.css'
 import { FaRegHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
 import toast, { useToaster } from 'react-hot-toast';
 import { addNewsLetter } from "../../store/reducers/newsLetterReducers";
+import Popup from "../../Components/Popup-home/popup";
 const Home = () => {
   const dispatch = useDispatch();
   const toaster = useToaster();
   const [email, setEmail] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
   const handleSubscribe = async (e) => {
     e.preventDefault();
     console.log(email);
@@ -107,6 +109,23 @@ const Home = () => {
 
     },
   ]
+
+  useEffect(() => {
+    // Display the popup when the component mounts (on initial load)
+    setShowPopup(true);
+
+    // Hide the popup after a certain delay (e.g., 3 seconds)
+    // const timeout = setTimeout(() => {
+    //   setShowPopup(false);
+    // }, 3000);
+
+    // Clear the timeout to avoid hiding the popup if the component unmounts
+    // return () => clearTimeout(timeout);
+  }, []); // Empty dependency array ensures the effect runs only once
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
   return (
     <div>
       <Hero/>
@@ -224,6 +243,7 @@ menuItems.map((item,index)=>{
           <button type="submit">Subscribe</button>
         </form>
     </div>
+    {showPopup && <Popup onClose={closePopup} />}
     </div>
   )
 }
