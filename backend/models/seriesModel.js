@@ -1,5 +1,3 @@
-// create the series schema
-
 const mongoose = require('mongoose');
 
 const seriesSchema = mongoose.Schema({

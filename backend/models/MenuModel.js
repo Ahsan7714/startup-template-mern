@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 
 
 const menuSchema = mongoose.Schema({
-    series: [{
+    series: [
+        {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Series',
         required: true,
-    }],
+    }
+],
     franchise: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -16,3 +18,6 @@ const menuSchema = mongoose.Schema({
 }, {
     timestamps: true,
 });
+
+
+module.exports = mongoose.model('Menu', menuSchema);

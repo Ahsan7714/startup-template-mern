@@ -1,6 +1,6 @@
 const catchAsyncError = require("../middleware/catchAsyncError");
-const FranchiseRequest = require("../models/franchiseRequestModel");
-const User=require("../models/userModel")
+const FranchiseRequest = require("../models/RequestModel");
+const CustomError = require("../utils/errorhandler");
 
 
 

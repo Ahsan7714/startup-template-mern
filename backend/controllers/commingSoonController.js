@@ -1,3 +1,5 @@
+const catchAsyncError = require("../middleware/catchAsyncError")
+const CustomError = require("../utils/errorhandler")
 
 
 exports.getAllCommingSoonFranchise=catchAsyncError(async(req,res,next)=>{
