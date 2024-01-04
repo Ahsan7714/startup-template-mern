@@ -16,6 +16,7 @@ import FranchiseLocation from './Pages/AddFranchiseLocation/FranchiseLocation.js
 import AllNewsletter from './Pages/AllNewsletterEmails/AllNewsletter.jsx';
 import AddDrinks from './Pages/AddDrinks/AddDrinks.jsx';
 import DashboardMenu from './Pages/DashboardMenu/DashboardMenu.jsx';
+import ComingSoon from './Pages/ComingSoon/ComingSoon.jsx';
 
 function App() {
   const location = useLocation();
@@ -39,6 +40,7 @@ function App() {
         <Route path='/dashboard/newsletters' element={<AllNewsletter />} />
         <Route path='/dashboard/add-drinks' element={<AddDrinks />} />
         <Route path='/dashboard/menu' element={<DashboardMenu />} />
+        <Route path='/dashboard/comingsoon' element={<ComingSoon />} />
 
       </Routes>
       {!isDashboard && <Footer />}

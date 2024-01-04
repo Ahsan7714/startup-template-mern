@@ -4,12 +4,11 @@ import './Home.css'
 import { FaRegHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
-import toast, { useToaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { addNewsLetter } from "../../store/reducers/newsLetterReducers";
 import Popup from "../../Components/Popup-home/popup";
 const Home = () => {
   const dispatch = useDispatch();
-  const toaster = useToaster();
   const [email, setEmail] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const handleSubscribe = async (e) => {

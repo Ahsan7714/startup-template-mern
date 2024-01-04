@@ -5,10 +5,10 @@ import logo from '../../../../public/images/logo.png';
 import { GiGlassShot } from 'react-icons/gi';
 import { BiSolidCategory } from 'react-icons/bi';
 import { FaRegNewspaper } from 'react-icons/fa6';
-import { MdAccountCircle } from 'react-icons/md';
 import { MdAddBusiness } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { TiThMenu } from "react-icons/ti";
+import { MdOutlineWatchLater } from "react-icons/md";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -96,18 +96,17 @@ const Sidebar = () => {
           <GiGlassShot className='text-[20px]' />
           <p className='text-[18px] font-semibold'>Drinks</p>
         </Link>
-
-        {/* <Link
-          to='/dashboard/profile'
+        <Link
+          to='/dashboard/comingsoon'
           className={`flex items-center ${
-            location.pathname === '/dashboard/profile'
+            location.pathname === '/dashboard/comingsoon'
               ? 'bg-[#3f691f] text-white'
               : 'text-black bg-white'
-          } px-2 py-2 gap-2 rounded-md hover:pl-3 transform transition-all duration-300 ease-in-out`}
+          } px-2 py-2 gap-2 rounded-md hover:pl-3  w-[180px] transform transition-all duration-300 ease-in-out`}
         >
-          <MdAccountCircle className='text-[24px]' />
-          <p className='text-[18px] font-semibold'>Profile</p>
-        </Link> */}
+          < MdOutlineWatchLater className='text-[20px]' />
+          <p className='text-[18px] font-semibold'>Coming Soon</p>
+        </Link>
       </div>
     </div>
   );
