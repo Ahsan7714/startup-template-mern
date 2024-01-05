@@ -1,39 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../Components/Dashboard/Sidebar/Sidebar";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { FaEye } from "react-icons/fa";
+import { FaClosedCaptioning, FaEye } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { clearState, deleteRequest, getAllFranchiseRequests } from "../../store/reducers/adminReducers";
+import { MdOutlineClose } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const Request = () => {
   const [showModal, setShowModal] = useState(false);
-
-  // Dummy data for franchise requests
-  const franchiseRequests = [
-    {
-      id: 1,
-      name: "Aqib Nawan Khan",
-      email: "google1231@gmail.com",
-      contact: "0218321383",
-    },
-    {
-      id: 1,
-      name: "Aqib Nawan Khan",
-      email: "google1231@gmail.com",
-      contact: "0218321383",
-    },
-    {
-      id: 1,
-      name: "Aqib Nawan Khan",
-      email: "google1231@gmail.com",
-      contact: "0218321383",
-    },
-    {
-      id: 1,
-      name: "Aqib Nawan Khan",
-      email: "google1231@gmail.com",
-      contact: "0218321383",
-    },
-    // Add more dummy data objects as needed
-  ];
+const dispatch=useDispatch()
+const {allRequests,loading,isDeleted} = useSelector(state => state.admin)
+  useEffect(() => {
+    dispatch(getAllFranchiseRequests())
+  }, [dispatch])
 
   const handleEyeClick = () => {
     setShowModal(true);
@@ -42,6 +22,18 @@ const Request = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
+  useEffect(() => {
+    if(isDeleted){
+      toast.success("Request Deleted Successfully");
+      dispatch(getAllFranchiseRequests())
+      clearState()
+    }
+  }, [dispatch,isDeleted])
+
+const handleDelete=(id)=>{
+  dispatch(deleteRequest(id))
+}
 
   return (
     <div>
@@ -57,29 +49,28 @@ const Request = () => {
             <p>Contact</p>
             <p>Action</p>
           </div>
-          {franchiseRequests.map((request) => (
+          {
+            loading ? <h1 className="text-xl">Loading...</h1> :
+           allRequests?.length<1 ? <h1 className="text-xl">No Requests Available</h1>: 
+            allRequests?.map((request) => (
             <div
               key={request.id}
               className="flex justify-center gap-20 text-center text-[16px] py-3 w-[75%] mx-auto rounded-xl border border-[#0000003d]"
             >
               <p>{request.name}</p>
               <p>{request.email}</p>
-              <p>{request.contact}</p>
+              <p>{request.phone}</p>
               <div className="flex gap-2">
                 <FaEye
                   className="p-[6px] bg-[#96c93d] text-[26px] text-white rounded hover:shadow-lg hover:shadow-[#96c93d] cursor-pointer"
                   onClick={handleEyeClick}
                 />
-                <RiDeleteBin5Fill className="p-[6px] bg-red-600 text-[26px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer" />
+                <RiDeleteBin5Fill className="p-[6px] bg-red-600 text-[26px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer" onClick={()=>handleDelete(request._id)}/>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      {/* Details Model */}
-      {showModal && (
+
+              {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
-          <div className="bg-white p-7 rounded-md w-[50%]">
+          <div className="bg-white p-7 rounded-md w-[50%] relative">
             {/* Modal content */}
             <div className="flex flex-col gap-4">
               <p className="text-[25px] text-[#3f691f] font-semibold pb-5 text-center">
@@ -88,55 +79,63 @@ const Request = () => {
               <div className="flex flex-col gap-4 ">
                 <div className="flex justify-between">
                   <p className="text-[18px] font-semibold">Full Name </p>
-                  <p>Aqib</p>
+                  <p>{request.name}</p>
                 </div>
                 <div className="flex justify-between ">
                   <p className="text-[18px] font-semibold">Email</p>
-                  <p>Aqib@gamil.com</p>
+                  <p>{request.email}</p>
                 </div>
               </div>
               <div className="flex flex-col gap-4 ">
                 <div className="flex justify-between ">
                   <p className="text-[18px] font-semibold">Current Occupation</p>
-                  <p>Business man</p>
+                  <p>{request.occupation}</p>
                 </div>
                 <div className="flex justify-between ">
                   <p className="text-[18px] font-semibold">Net worth</p>
-                  <p>50 million</p>
+                  <p>{request.netWorth}</p>
                 </div>
               </div>
               <div className="flex flex-col gap-4 ">
                 <div className="flex justify-between ">
                   <p className="text-[18px] font-semibold">Liquid assests</p>
-                  <p>unkowm</p>
+                  <p>{request.liquidAssets}</p>
                 </div>
                 <div className="flex justify-between ">
-                  <p className="text-[18px] font-semibold">Predered location</p>
-                  <p>SansFransisco</p>
+                  <p className="text-[18px] font-semibold">Prefered location</p>
+                  <p>{request.preferredLocation}</p>
                 </div>
               </div>
               <div className="flex flex-col gap-4">
                 <div className="flex justify-between">
                   <p className="text-[18px] font-semibold">Address</p>
-                  <p>House no 4 burj khalifa</p>
+                  <p>{request.address}</p>
                 </div>
                 <div className="flex justify-between ">
                   <p className="text-[18px] font-semibold">Reference</p>
-                  <p>Social Media</p>
+                  <p>{request.preferredLocation}</p>
                 </div>
               </div>
               <div className="flex flex-col ">
                 <div className="flex  gap-4">
                   <p className="text-[18px] font-semibold">Notes :</p>
-                  <p>Hope you will contact n as i am very instrusted in your brand</p>
+                  <p>{request.notes}</p>
                 </div>
               </div>
             </div>
-            <button onClick={handleCloseModal} className="bg-[#3f691f] text-white  rounded-lg px-3 py-1 text-sm mt-5">Close </button>
+            <button onClick={handleCloseModal} className="text-[#3f691f]   absolute top-1 right-10 text-3xl mt-5"><MdOutlineClose/> </button>
           </div>
         </div>
       )}
-    </div>
+
+            </div>
+
+            
+          ))}
+        </div>
+      </div>
+      {/* Details Model */}
+          </div>
   );
 };
 

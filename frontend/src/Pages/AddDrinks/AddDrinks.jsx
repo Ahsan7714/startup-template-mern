@@ -1,91 +1,99 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../Components/Dashboard/Sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { addDrinksToMenu, clearState, deleteDrinksFromMenu, getAllOwnFranchiseDrinks, getAllOwnFranchiseSeries } from "../../store/reducers/franchiseReducer";
+import toast from "react-hot-toast";
+import Loader from "../../Components/Loader/Loader";
 
 
 const AddDrinks = () => {
-  const [seriesName, setSeriesName] = useState("");
+  const [seriesId, setSeriesId] = useState("")
   const [drinkName, setDrinkName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  const handleSeriesChange = (e) => {
-    setSeriesName(e.target.value);
-  };
-  const drinks=[
-    {
-        name:"Puffle Waffle",
-        image:"puffle waffle"
-                },
-    {
-        name:"Milk Tea",
-        image:"milk tea"
-    },
-    {
-        name:"Cheese Cream",
-        image:"cheese cream"
-    },
-    {
-        name:"Fresh Fruit Tea",
-        image:"fresh fruit tea"
-    },
-    {
-        name:"Stormy",
-        image:"stormy"
-    },
-    {
-        name:"Yakult",
-        image:"yakult"
-    },
-    {
-        name:"Pure milk",
-        image:"pure milk"
-    },
-    {
-        name:"Tea",
-        image:"tea"
-    },
-    {
-        name:"Coffee",
-        image:"coffee"
-    },{
-        name:"Blended",
-        image:"blended"
-    }
-]
 
+const dispatch=useDispatch()
+const {allOwnFranchiseSeries,allOwnFranchiseDrinks,isDrinkAdded,isDrinkDeleted,error,loading}=useSelector(state=>state.franchise)
+
+
+const handleSeriesChange = (e) => {
+  setSeriesId(e.target.value); // Fix: Use setSeriesId to update seriesId
+};
+ 
   const handleNameChange = (e) => {
     setDrinkName(e.target.value);
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    // Check if a file is selected
-    if (file) {
-      // Check if the selected file is an image
-      const isImage = file.type.startsWith("image/");
-
-      if (isImage) {
-        // Check if the file size is less than or equal to 200KB
-        const maxSizeKB = 200;
-        if (file.size <= maxSizeKB * 1024) {
-          setSelectedFile(file);
-        } else {
-          alert("Please choose an image with a size less than or equal to 200KB.");
-        }
-      } else {
-        alert("Please choose a valid image file.");
+    const reader = new FileReader();
+    
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        // setAvatarPreview(reader.result);
+        setSelectedFile(reader.result);
       }
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const handleAddSeries = (e) => {
+    e.preventDefault();
+
+    if (drinkName === "") {
+      alert("Please enter a drink name.");
+      return;
     }
+    if (!selectedFile) {
+      alert("Please choose an image for the drink.");
+      return;
+    }
+    dispatch(addDrinksToMenu({name:drinkName,seriesId:seriesId,image:selectedFile}))
   };
+useEffect(() => {
+  dispatch(getAllOwnFranchiseSeries())
+  dispatch(getAllOwnFranchiseDrinks())
+}, [dispatch])
 
-  const handleAddSeries = () => {
-    console.log("Drink Name:", drinkName);
-    console.log("Series Name:", seriesName);
-    console.log("Selected File:", selectedFile);
-    // Add your logic to send the data to the server or perform any other actions
-  };
 
+useEffect(() => {
+  if (isDrinkAdded) {
+    setDrinkName("");
+    setSelectedFile(null);
+    toast.success("Drink Added Successfully");
+  dispatch( clearState())
+  dispatch(getAllOwnFranchiseDrinks())
+
+  }
+}
+, [isDrinkAdded,dispatch]);
+
+useEffect(() => {
+  if (isDrinkDeleted) {
+    toast.success("Drink Deleted Successfully");
+  dispatch( clearState())
+  dispatch(getAllOwnFranchiseDrinks())
+
+  }
+}
+, [isDrinkDeleted,dispatch]);
+
+const handleDelete=(id)=>{
+  dispatch(deleteDrinksFromMenu(id))
+  
+}
+
+useEffect(() => {
+  if (error) {
+    toast.error(error);
+  dispatch( clearState())
+  }
+}
+, [error,dispatch]);
+if(loading){
+  return <Loader/>
+}
   return (
     <div>
       <Sidebar />
@@ -114,13 +122,13 @@ const AddDrinks = () => {
                 <label htmlFor="">Select Series</label>
             <select
                   name="series_name"
-                  value={seriesName}
                   onChange={handleSeriesChange}
+                  value={seriesId}
                   className="outline-none border text-[#000000b8] border-[#00000068] bg-white rounded-md w-[160px] h-[43px]  px-2 placeholder:text-[#000000b8]"
                 >
                   <option value="" disabled>Select Series</option>
-                  {drinks.map((drink, index) => (
-                    <option key={index} value={drink.name}>
+                  {allOwnFranchiseSeries.map((drink, index) => (
+                    <option key={index} value={drink._id}>
                       {drink.name}
                     </option>
                   ))}
@@ -147,7 +155,7 @@ const AddDrinks = () => {
 
             <button
               className="bg-[#3f691f] text-white py-2 px-3 font-semibold rounded-lg h-[42px] mt-7 w-[150px] border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300"
-              onClick={handleAddSeries}
+              onClick={(e)=>handleAddSeries(e)}
             >
               Add Drink
             </button>
@@ -162,15 +170,15 @@ const AddDrinks = () => {
           <div>
           <div className="">
   <div className="grid grid-cols-2 gap-8 ml-20">
-    {drinks &&
-      drinks?.map((drink, index) => {
+    {allOwnFranchiseDrinks &&
+      allOwnFranchiseDrinks?.map((drink, index) => {
         return (
           <div key={index} className="flex flex-col  pt-3 items-center border border-[#00000027] w-[250px] rounded-xl h-[360px] relative">
-               <RiDeleteBin5Fill className="p-[3px] py-[6px] absolute -right-2 -top-2 bg-red-600 text-[27px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer" />
+               <RiDeleteBin5Fill className="p-[3px] py-[6px] absolute -right-2 -top-2 bg-red-600 text-[27px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer" onClick={(e)=>handleDelete(drink._id)}/>
             <div>
               <img
-                src={`../images/${drink?.image}.png`}
-                alt={`./images/${drink?.image}.png`}
+                src={`${drink?.image}`}
+                alt={`${drink?.image}`}
                 className="h-[300px] object-cover"
               />
             </div>

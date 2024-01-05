@@ -16,10 +16,29 @@ import FranchiseLocation from './Pages/AddFranchiseLocation/FranchiseLocation.js
 import AllNewsletter from './Pages/AllNewsletterEmails/AllNewsletter.jsx';
 import AddDrinks from './Pages/AddDrinks/AddDrinks.jsx';
 import DashboardMenu from './Pages/DashboardMenu/DashboardMenu.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadUser } from './store/reducers/franchiseReducer.js';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development.js';
 
 function App() {
   const location = useLocation();
   const isDashboard = location.pathname.includes('/dashboard');
+
+  const dispatch = useDispatch();
+const {user}=useSelector(state=>state.franchise)
+const navigate=useNavigate()
+useEffect(() => {
+  dispatch(loadUser())
+}
+, [dispatch])
+useEffect(() => {
+  if (user && user.role=="admin") {
+    navigate("/dashboard");
+  }else if(user && user.role=="franchise"){
+    navigate("/dashboard/menu");
+  }
+}, [user]);
 
   return (
     <>
@@ -30,7 +49,7 @@ function App() {
         <Route path='/franchise' element={<Franchise />} />
         <Route path='/mobile-app' element={<MobileApp />} />
         <Route path='/menu' element={<MenuPage />} />
-        <Route path='/menu/:drink' element={<DrinkSeriesPage />} />
+        <Route path='/menu/:seriesId' element={<DrinkSeriesPage />} />
         <Route path='/locations' element={<Locations />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/dashboard/requests' element={<Request />} />

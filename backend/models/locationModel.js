@@ -12,10 +12,10 @@ const locationSchema=mongoose.Schema({
         type:String,
         required:true,
     },
-        address:{
-            type:String,
-            required:true,
-        },
+    address:{
+        type:String,
+        required:true,
+    },
     thirdPartyLink:{
         type:String,
         required:true,
@@ -25,11 +25,11 @@ const locationSchema=mongoose.Schema({
         ref:"User",
         required:true,
     },
-    close_time:{
+    closingTime:{
         type:String,
         required:true,
     },
-    open_time:{
+    openTime:{
         type:String,
         required:true,
     },

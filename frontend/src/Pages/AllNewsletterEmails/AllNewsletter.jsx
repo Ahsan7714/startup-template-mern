@@ -2,27 +2,37 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from "../../Components/Dashboard/Sidebar/Sidebar";
 import * as XLSX from 'xlsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllNewsLetter, deleteAllNewsLetter } from "../../store/reducers/newsLetterReducers";
+import { getAllNewsLetter,deleteAllNewsLetter, clearState } from "../../store/reducers/adminReducers";
+import toast from 'react-hot-toast';
 
 const AllNewsletter = () => {
   const dispatch = useDispatch();
-  const newsletterList = useSelector((state) => state.newsletter.newsletterlist);
+  const {newsletters,isAllNewslettersDeleted}=useSelector(state=>state.admin)
 
   // Fetch all newsletters when the component mounts
   useEffect(() => {
     dispatch(getAllNewsLetter());
+    clearState();
   }, [dispatch]);
-  console.log('newsletterList:', newsletterList); // Add this line
+  console.log('newsletterList:', newsletters); // Add this line
 
   const downloadExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(newsletterList);
+    
+    const worksheet = XLSX.utils.json_to_sheet(newsletters);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Newsletter');
     XLSX.writeFile(workbook, 'newsletter.xlsx');
 
     // After downloading, delete all newsletters
     dispatch(deleteAllNewsLetter());
+    dispatch(getAllNewsLetter());
+    toast.success('All newsletters deleted successfully');
   };
+  useEffect(() => {
+    if(isAllNewslettersDeleted){
+      dispatch(getAllNewsLetter());
+    }
+  }, [dispatch,isAllNewslettersDeleted])
 
   return (
     <div>
@@ -40,9 +50,11 @@ const AllNewsletter = () => {
               </tr>
             </thead>
             <tbody className="text-[14px] rounded-lg">
-              {newsletterList.map((item, index) => (
+              {
+                newsletters?.length===0 ? <tr className="border-b border-[#00000041]"><td className="py-4">No data found</td></tr>:
+                newsletters?.map((item, index) => (
                 <tr key={index} className="border-b border-[#00000041]">
-                  <td className="py-4">{item.id}</td>
+                  <td className="py-4">{item._id}</td>
                   <td>{item.email}</td>
                 </tr>
               ))}

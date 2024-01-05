@@ -1,41 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../Components/Dashboard/Sidebar/Sidebar";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { addLocation, clearState, deleteLocation, getAllLocations } from "../../store/reducers/adminReducers";
+import toast from "react-hot-toast";
+import Loader from "../../Components/Loader/Loader";
 
 
 const FranchiseLocation = () => {
   // State variables to store form data
   const [formData, setFormData] = useState({
-    franchiseName: "",
-    franchiseAddress: "",
-    longitude: "",
-    latitude: "",
+    name: "",
+    address: "",
+    email:"",
     openTime: "",
     closingTime: "",
     thirdPartyLink: "",
+    image:"dummy"
   });
 
-  const [franchiseList, setFranchiseList] = useState([
-    {
-      name: "Franchise 1",
-      address: "Street no 4 Calefornia,America ",
-    },
-    {
-        name: "Franchise 1",
-        address: "Street no 4 Calefornia,America ",
-      },    {
-        name: "Franchise 1",
-        address: "Street no 4 Calefornia,America ",
-      },    {
-        name: "Franchise 1",
-        address: "Street no 4 Calefornia,America ",
-      },
-    // Add more dummy data as needed
-  ]);
+  
+
+const dispatch=useDispatch()
+const {locations,isLocationAdded,isLocationDeleted,loading,error}=useSelector(state=>state.admin)
 
   // Event handler for form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -45,10 +37,43 @@ const FranchiseLocation = () => {
   // Event handler for "Add Location" button click
   const handleAddLocation = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    // You can perform additional actions here, like sending the data to the server.
+    dispatch(addLocation(formData))
   };
 
+
+  const deleteLocationFromHere = (id) => {
+    dispatch(deleteLocation(id))
+    toast.success("Location deleted successfully")
+  };
+useEffect(() => {
+  if(isLocationAdded){
+    setFormData({
+      name: "",
+      address: "",
+      email:"",
+      openTime: "",
+      closingTime: "",
+      thirdPartyLink: "",
+      image:"dummy"
+    })
+    toast.success("Location added successfully")
+  }
+}, [isLocationAdded])
+useEffect(() => {
+  
+  dispatch(getAllLocations())
+}
+, [isLocationDeleted,isLocationAdded,dispatch])
+
+useEffect(() => {
+  if(error){
+    toast.error(error)
+  }
+  dispatch(clearState())
+}, [error,dispatch])
+if(loading){
+  return <Loader/>
+}
   return (
     <div>
       <Sidebar />
@@ -62,16 +87,16 @@ const FranchiseLocation = () => {
               <div className="flex justify-between">
                 <div className="flex flex-col gap-2 ">
                   <label
-                    htmlFor="franchiseName"
+                    htmlFor="name"
                     className="text-[#000000e4] text-[16px]"
                   >
                     Franchise Name
                   </label>
                   <input
                     type="text"
-                    name="franchiseName"
+                    name="name"
                     required
-                    value={formData.franchiseName}
+                    value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Enter Franchise name"
                     className=" outline-none border border-[#00000068]  text-[#000000b8]  bg-white rounded-md w-[330px] py-2 px-2 placeholder:text-[#000000b8]"
@@ -79,7 +104,7 @@ const FranchiseLocation = () => {
                 </div>
                 <div className="flex flex-col gap-2">
                   <label
-                    htmlFor="franchiseAddress"
+                    htmlFor="address"
                     className="text-[#000000e4] text-[16px]"
                   >
                     Franchise Address
@@ -87,40 +112,10 @@ const FranchiseLocation = () => {
                   <input
                     type="text"
                     required
-                    name="franchiseAddress"
-                    value={formData.franchiseAddress}
+                    name="address"
+                    value={formData.address}
                     onChange={handleInputChange}
                     placeholder="Enter address"
-                    className=" outline-none border border-[#00000068]  text-[#000000b8]  bg-white rounded-md w-[330px] py-2 px-2 placeholder:text-[#000000b8]"
-                  />
-                </div>
-              </div>
-              <div className="flex justify-between">
-                <div className="flex flex-col gap-2 ">
-                  <label htmlFor="longitude" className="text-[#000000e4] text-[16px]">
-                    Location (Longitude)
-                  </label>
-                  <input
-                    type="number"
-                    name="longitude"
-                    required
-                    value={formData.longitude}
-                    onChange={handleInputChange}
-                    placeholder="Enter longitude"
-                    className=" outline-none border border-[#00000068]  text-[#000000b8]  bg-white rounded-md w-[330px] py-2 px-2 placeholder:text-[#000000b8]"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="latitude" className="text-[#000000e4] text-[16px]">
-                    Location (Latitude)
-                  </label>
-                  <input
-                    type="number"
-                    name="latitude"
-                    required
-                    value={formData.latitude}
-                    onChange={handleInputChange}
-                    placeholder="Enter latitude"
                     className=" outline-none border border-[#00000068]  text-[#000000b8]  bg-white rounded-md w-[330px] py-2 px-2 placeholder:text-[#000000b8]"
                   />
                 </div>
@@ -164,13 +159,13 @@ const FranchiseLocation = () => {
                     htmlFor="thirdPartyLink"
                     className="text-[#000000e4] text-[16px]"
                   >
-                    Third Party link
+                    Email
                   </label>
                   <input
                     type="text"
-                    name="thirdPartyLink"
+                    name="email"
                     required
-                    value={formData.thirdPartyLink}
+                    value={formData.email}
                     onChange={handleInputChange}
                     placeholder="Enter link"
                     className=" outline-none border border-[#00000068]  text-[#000000b8]  bg-white rounded-md w-[330px] py-2 px-2 placeholder:text-[#000000b8]"
@@ -224,12 +219,12 @@ const FranchiseLocation = () => {
               </tr>
             </thead>
             <tbody className="text-[14px]  rounded-lg ">
-              {franchiseList.map((franchise, index) => (
+              {locations?.map((franchise, index) => (
                 <tr key={index} className="border-b border-[#00000041] ">
                   <td className="py-4">{franchise.name}</td>
                   <td>{franchise.address}</td>
                   <td>
-                    <RiDeleteBin5Fill className="p-[6px] bg-red-600 text-[26px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer" />
+                    <RiDeleteBin5Fill className="p-[6px] bg-red-600 text-[26px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer" onClick={()=>deleteLocationFromHere(franchise._id)} />
                   </td>
                 </tr>
               ))}

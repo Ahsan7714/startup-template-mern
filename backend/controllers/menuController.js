@@ -4,11 +4,25 @@ const Series = require("../models/seriesModel");
 const Drink = require("../models/drinkModel");
 const User=require("../models/userModel")
 const CustomError = require("../utils/errorhandler");
+const cloudinary = require("cloudinary");
 
 // Controller for adding a series to the menu
 exports.addSeriesToMenu = catchAsyncError(async (req, res, next) => {
   const {name,image } = req.body;
-  const series = await Series.create({name,image,drinks:[],franchise:req.user._id});
+
+  // implment cloudinary here to upload image in series folder 
+
+  const myCloud = await cloudinary.v2.uploader.upload(image, {
+    folder: "series",
+    width: 800,
+    crop: "scale",
+  });
+
+
+
+
+
+  const series = await Series.create({name,image:myCloud.secure_url,drinks:[],franchise:req.user._id});
   
   const menu = await Menu.find({ franchise: req.user._id });
   // add series to menu 
@@ -30,7 +44,15 @@ exports.addDrinkToSeriesInMenu = catchAsyncError(async (req, res, next) => {
   const {name,image, seriesId,  } = req.body;
   const franchiseId = req.user._id;
 
-const drink=await Drink.create({name,image,series:seriesId,franchise:franchiseId})
+const myCloud=await cloudinary.v2.uploader.upload(image,{
+  folder:"drinks",
+  width:800,
+  crop:"scale"
+})
+
+
+
+const drink=await Drink.create({name,image:myCloud.secure_url,series:seriesId,franchise:franchiseId})
 
   const menu = await Menu.findOne({ franchise: franchiseId }).populate({
     path: "series",
@@ -180,3 +202,8 @@ exports.deleteSeries=catchAsyncError(async(req,res,next)=>{
 })
 
 
+
+exports.getAllDrinksInMenu=catchAsyncError(async(req,res,next)=>{
+  const drinks=await Drink.find({franchise:req.user._id})
+  res.status(200).json({success:true,drinks})
+})

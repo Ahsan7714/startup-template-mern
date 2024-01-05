@@ -1,86 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../Components/Dashboard/Sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { addSeriesToMenu, clearState, deleteSeriesFromMenu, getAllOwnFranchiseSeries } from "../../store/reducers/franchiseReducer";
+import toast from "react-hot-toast";
+import Loader from "../../Components/Loader/Loader";
 
 
 const AddSeries = () => {
   const [seriesName, setSeriesName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  const drinks=[
-    {
-        name:"Puffle Waffle",
-        image:"puffle waffle"
-                },
-    {
-        name:"Milk Tea",
-        image:"milk tea"
-    },
-    {
-        name:"Cheese Cream",
-        image:"cheese cream"
-    },
-    {
-        name:"Fresh Fruit Tea",
-        image:"fresh fruit tea"
-    },
-    {
-        name:"Stormy",
-        image:"stormy"
-    },
-    {
-        name:"Yakult",
-        image:"yakult"
-    },
-    {
-        name:"Pure milk",
-        image:"pure milk"
-    },
-    {
-        name:"Tea",
-        image:"tea"
-    },
-    {
-        name:"Coffee",
-        image:"coffee"
-    },{
-        name:"Blended",
-        image:"blended"
-    }
-]
+const {allOwnFranchiseSeries,isSeriesAdded,isSeriesDeleted,error,loading}=useSelector(state=>state.franchise)
+const dispatch=useDispatch()
 
   const handleNameChange = (e) => {
     setSeriesName(e.target.value);
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    // Check if a file is selected
-    if (file) {
-      // Check if the selected file is an image
-      const isImage = file.type.startsWith("image/");
-
-      if (isImage) {
-        // Check if the file size is less than or equal to 200KB
-        const maxSizeKB = 200;
-        if (file.size <= maxSizeKB * 1024) {
-          setSelectedFile(file);
-        } else {
-          alert("Please choose an image with a size less than or equal to 200KB.");
-        }
-      } else {
-        alert("Please choose a valid image file.");
+    const reader = new FileReader();
+    
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        // setAvatarPreview(reader.result);
+        setSelectedFile(reader.result);
       }
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const handleAddSeries = (e) => {
+    if (seriesName === "") {
+      toast.error("Please enter a series name.");
+      return;
     }
+    if (!selectedFile) {
+      toast.error("Please choose an image for the series.");
+      return;
+    }
+    e.preventDefault();
+   dispatch(addSeriesToMenu({name:seriesName,image:selectedFile}))
   };
+useEffect(() => {
+  dispatch(getAllOwnFranchiseSeries())
+}, [dispatch])
 
-  const handleAddSeries = () => {
-    console.log("Series Name:", seriesName);
-    console.log("Selected File:", selectedFile);
-    // Add your logic to send the data to the server or perform any other actions
-  };
+useEffect(() => {
+  if (isSeriesAdded) {
+    setSeriesName("");
+    setSelectedFile(null);
+    toast.success("Series Added Successfully");
+  dispatch( clearState())
+  dispatch(getAllOwnFranchiseSeries())
 
+  }
+}, [isSeriesAdded,dispatch]);
+
+const handleDelete=(id)=>{
+  dispatch(deleteSeriesFromMenu(id))
+}
+useEffect(() => {
+  if (isSeriesDeleted) {
+    toast.success("Series Deleted Successfully");
+  dispatch( clearState())
+  dispatch(getAllOwnFranchiseSeries())
+
+  }
+}, [isSeriesDeleted,dispatch]);
+
+useEffect(() => {
+  if (error) {
+    toast.error(error);
+  dispatch( clearState())
+  }
+}
+, [error,dispatch]);
+if(loading) return(<Loader/>)
   return (
     <div>
       <Sidebar />
@@ -95,6 +92,7 @@ const AddSeries = () => {
                 Series Name
               </label>
               <input
+              required
                 type="text"
                 placeholder="Enter name"
                 name="series_name"
@@ -112,6 +110,7 @@ const AddSeries = () => {
                   Choose Picture
                 </button>
                 <input
+                required
                   type="file"
                   className="absolute left-0 top-0 outline-none border text-[1px] text-white rounded-md w-[150px] py-3 placeholder:text-[#000000b8] opacity-0 cursor-pointer"
                   onChange={handleFileChange}
@@ -120,7 +119,7 @@ const AddSeries = () => {
             </div>
             <button
               className="bg-[#3f691f] text-white py-2 px-3 font-semibold rounded-lg h-[42px] mt-8 ml-10 w-[150px] border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300"
-              onClick={handleAddSeries}
+              onClick={(e)=>handleAddSeries(e)}
             >
               Add Series
             </button>
@@ -134,15 +133,15 @@ const AddSeries = () => {
           <div>
           <div className="">
   <div className="grid grid-cols-2 gap-8 ml-20">
-    {drinks &&
-      drinks?.map((drink, index) => {
+    {loading?<Loader/> :   allOwnFranchiseSeries &&
+      allOwnFranchiseSeries?.map((drink, index) => {
         return (
           <div key={index} className="flex flex-col  pt-3 items-center border border-[#00000027] w-[250px] rounded-xl h-[360px] relative">
-               <RiDeleteBin5Fill className="p-[3px] py-[6px] absolute -right-2 -top-2 bg-red-600 text-[27px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer" />
+               <RiDeleteBin5Fill className="p-[3px] py-[6px] absolute -right-2 -top-2 bg-red-600 text-[27px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer" onClick={()=>handleDelete(drink._id)} />
             <div>
               <img
-                src={`../images/${drink?.image}.png`}
-                alt={`./images/${drink?.image}.png`}
+                src={`${drink?.image}`}
+                alt={`${drink?.image}`}
                 className="h-[300px] object-cover"
               />
             </div>

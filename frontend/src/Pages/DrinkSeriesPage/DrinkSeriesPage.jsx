@@ -1,55 +1,24 @@
 import { Link } from "react-router-dom"
 import "./DrinkSeriesPage.css"
 import { useParams } from "react-router-dom/dist/umd/react-router-dom.development"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { getAllDrinksOfAdmin } from "../../store/reducers/userReducer"
 const DrinkSeriesPage = () => {
-    const drinks=[
-        {
-            name:"Puffle Waffle",
-            image:"puffle waffle"
-                    },
-        {
-            name:"Milk Tea",
-            image:"milk tea"
-        },
-        {
-            name:"Cheese Cream",
-            image:"cheese cream"
-        },
-        {
-            name:"Fresh Fruit Tea",
-            image:"fresh fruit tea"
-        },
-        {
-            name:"Stormy",
-            image:"stormy"
-        },
-        {
-            name:"Yakult",
-            image:"yakult"
-        },
-        {
-            name:"Pure milk",
-            image:"pure milk"
-        },
-        {
-            name:"Tea",
-            image:"tea"
-        },
-        {
-            name:"Coffee",
-            image:"coffee"
-        },{
-            name:"Blended",
-            image:"blended"
-        }
-    ]
-    
+    const {seriesId}=useParams()
+
+const dispatch=useDispatch()
+const {allAdminDrinks,allAdminSeries}=useSelector(state=>state.user)
+
+
+useEffect(() => {
+    dispatch(getAllDrinksOfAdmin(seriesId))
+}, [dispatch,seriesId])
+   
     //  find the drink nmame from the url
      const {drink}=useParams()
-     console.log(drink)
-     const selectedDrink=drinks.find((d)=>d.name===drink)
-     console.log(selectedDrink)
-
+     const selectedDrink=allAdminSeries.find((d)=>d._id==seriesId)
+console.log(selectedDrink)
   return (
     <div className="menu_page_container mt-28 flex items-start">
         <div className="drinks_options_mobile ">
@@ -57,12 +26,12 @@ const DrinkSeriesPage = () => {
     <ul>
 
         {
-            drinks.map((drink)=>{
+            allAdminSeries?.map((drink)=>{
             return(
                 <>
 
-                <li className={`drink ${selectedDrink?.name==drink.name?"selected_drink":""}`}  >
-                  <Link to={`/menu/${drink.name}`} >  <h3>{drink.name}</h3></Link>
+                <li className={`drink ${selectedDrink?._id==drink._id?"selected_drink":""}`}  >
+                  <Link to={`/menu/${drink._id}`} >  <h3>{drink.name}</h3></Link>
                 </li>
                 </>
             )
@@ -75,12 +44,12 @@ const DrinkSeriesPage = () => {
     <ul>
 
         {
-            drinks.map((drink)=>{
+            allAdminSeries.map((drink)=>{
             return(
                 <>
 
-                <li className={`drink ${selectedDrink?.name==drink.name?"selected_drink":""}`}  >
-                  <Link  to={`/menu/${drink.name}`} >  <h3>{drink.name}</h3></Link>
+                <li className={`drink ${selectedDrink?._id==drink._id?"selected_drink":""}`}  >
+                  <Link  to={`/menu/${drink._id}`} >  <h3>{drink.name}</h3></Link>
                 </li>
                 </>
             )
@@ -92,18 +61,19 @@ const DrinkSeriesPage = () => {
     <h1 className="uppercase tracking-wide " style={{wordSpacing:"3.5px"}}>{selectedDrink && `${selectedDrink.name}  SERIES`}</h1>
         <div className="inner_drinks_card_container ">
         {
-            drinks &&  drinks?.map((drink)=>{
+            allAdminDrinks.length<1 ? <h1 className="text-center mx-auto w-fit align-middle pt-9">No Drinks Available</h1> :
+            allAdminDrinks &&  allAdminDrinks?.map((drink)=>{
                 return(
                     <>
-                    <Link to={`/menu/${drink.name}`} className="drink_card">
+                    <div  className="drink_card">
 
                         <div className="drink_card_image">
-                            <img src={`../images/${drink?.image}.png`} alt={`./images/${drink?.image}.png`} />
+                            <img src={`${drink?.image}`} alt={`./images/${drink?.image}.png`} />
                         </div>
                         <div className="drink_card_title">
                             <h3>{drink.name}</h3>
                         </div>
-                    </Link>
+                    </div>
                     </>
                 )
             })
