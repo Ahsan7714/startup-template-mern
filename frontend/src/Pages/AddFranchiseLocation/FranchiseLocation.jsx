@@ -16,7 +16,6 @@ const FranchiseLocation = () => {
     openTime: "",
     closingTime: "",
     thirdPartyLink: "",
-    image:"dummy"
   });
 
   

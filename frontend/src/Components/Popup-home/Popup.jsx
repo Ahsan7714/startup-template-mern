@@ -36,8 +36,8 @@ const Popup = ({ onClose }) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
       <img src={popup} alt="" className="relative h-[40vh] lg:h-fit rounded-xl lg:rounded-3xl px-2 lg:px-0" />
-      <IoClose className="absolute top-[32%] lg:top-[10%] right-[5%] lg:right-[26%] text-[24px] text-[#3f691f] cursor-pointer"  onClick={onClose}/>
       <div className="p-6  rounded-md  absolute flex flex-col gap-6 justify-center items-center">
+      <IoClose className="absolute -top-[50px] right-0 text-[34px] text-[#3f691f] cursor-pointer"  onClick={onClose}/>
         <p className="text-[#3f691f] text-[30px] lg:text-[40px] font-bold font-sans text-center">
           Join our newsletter
         </p>

@@ -110,16 +110,12 @@ const Home = () => {
   ]
 
   useEffect(() => {
-    // Display the popup when the component mounts (on initial load)
-    setShowPopup(true);
+  // show the pop after 5s
+    setTimeout(() => {
+      setShowPopup(true);
+    }, 5000);
 
-    // Hide the popup after a certain delay (e.g., 3 seconds)
-    // const timeout = setTimeout(() => {
-    //   setShowPopup(false);
-    // }, 3000);
-
-    // Clear the timeout to avoid hiding the popup if the component unmounts
-    // return () => clearTimeout(timeout);
+    
   }, []); // Empty dependency array ensures the effect runs only once
 
   const closePopup = () => {

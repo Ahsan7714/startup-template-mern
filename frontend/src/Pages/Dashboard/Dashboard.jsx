@@ -225,7 +225,7 @@ useEffect(() => {
               </div>
               <div className="flex flex-col gap-3">
               <label htmlFor="" className="text-[#000000e4] text-[16px]">
-                Drink Picture
+                 Picture
               </label>
               <div className="relative">
                 <button className="cursor-pointer bg-white shadow-xl h-[42px] px-3 rounded-lg text-[15px]">
