@@ -6,7 +6,7 @@ import { FaRegComment } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { addNewsLetter } from "../../store/reducers/newsLetterReducers";
-import Popup from "../../Components/Popup-home/popup";
+import Popup from "../../Components/Popup-home/Popup";
 import { Link } from "react-router-dom";
 const Home = () => {
   const dispatch = useDispatch();
