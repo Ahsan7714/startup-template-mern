@@ -1,0 +1,19 @@
+/* Custom Scrollbar Styles for Sidebar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 7px; /* Set the width of the scrollbar */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #c0bebe; /* Set the color of the scrollbar track */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #3f691f; /* Set the color of the scrollbar thumb */
+    border-radius: 15px; /* Set the border radius of the thumb */
+    height: 30px; /* Set the height of the thumb */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Set the color of the thumb on hover */
+  }
+  

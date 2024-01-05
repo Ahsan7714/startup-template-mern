@@ -68,12 +68,12 @@ export const getAllCommingSoonFranchise = createAsyncThunk(
     "/comming",
     async (info, { rejectWithValue, fulfillWithValue }) => {
         try {
-        const { data } = await axios.get(`${baseurl}/user/comming/`,
+        const { data } = await axios.get(`${baseurl}/admin/comming/`,
         {
             withCredentials:true
         }
         );
-        return fulfillWithValue(data);
+        return fulfillWithValue(data.franchise);
         } catch (error) {
         return rejectWithValue(error.response.data);
         }
@@ -171,7 +171,7 @@ export const userReducer = createSlice({
         // get all comming soon
         builder.addCase(getAllCommingSoonFranchise.fulfilled, (state,action) => {
             state.loading = false;
-            state.commingSoonFranchise = action.payload.commingSoonFranchise;
+            state.commingSoonFranchise = action.payload;
 
         });
         builder.addCase(getAllCommingSoonFranchise.pending, (state) => {

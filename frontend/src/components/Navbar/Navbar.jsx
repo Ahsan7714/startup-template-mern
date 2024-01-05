@@ -59,7 +59,7 @@ const Navbar = () => {
                     user && (user.role==="admin" || user.role==="franchise") &&
                     (
                         <li>
-                    <NavLink onClick={()=>handleSidebar()} to="/dashboard">
+                    <NavLink onClick={()=>handleSidebar()} to={user.role=="admin"?"/dashboard":"/dashboard/menu"}>
                     Dashboard
                     </NavLink>  
                 </li>
@@ -137,7 +137,7 @@ const Navbar = () => {
                         user && (user.role==="admin" || user.role==="franchise") &&
                         (
                             <li>
-                        <NavLink onClick={()=>handleSidebar()} to="/dashboard">
+                        <NavLink onClick={()=>handleSidebar()} to={user.role=="admin"?"/dashboard":"/dashboard/menu"}>
                         Dashboard
                         </NavLink>
                     </li>

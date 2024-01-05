@@ -14,6 +14,9 @@ const initialState={
     isAllNewslettersDeleted:false,
     isFranchiseAdded:false,
     isFranchiseDeleted:false,
+    commingSoon:[],
+    isCoomingSoonDeleted:false,
+    isCoomingSoonAdded:false,
 
 }
 
@@ -196,6 +199,60 @@ export const deleteFranchise = createAsyncThunk(
     }
     );
 
+    // get all comming soon
+export const getAllCommingSoon = createAsyncThunk(
+    "/commingSoon/get",
+    async (info, { rejectWithValue, fulfillWithValue }) => {
+        try {
+        const { data } = await axios.get(`${baseurl}/admin/comming/`,
+        {
+            withCredentials:true
+        }
+        );
+        return fulfillWithValue(data.franchise);
+        } catch (error) {
+        return rejectWithValue(error.response.data);
+        }
+    }
+    );
+
+    // delete all one comming soon
+export const deleteOneCommingSoon = createAsyncThunk(
+    "/commingSoon/delete",
+    async (info, { rejectWithValue, fulfillWithValue }) => {
+        try {
+        const { data } = await axios.delete(`${baseurl}/admin/comming/${info}`,
+        {
+            withCredentials:true
+        }
+        );
+        return fulfillWithValue(data);
+        } catch (error) {
+        return rejectWithValue(error.response.data);
+        }
+    }
+    );
+
+
+    // add one comming soon
+export const addOneCommingSoon = createAsyncThunk(
+    "/commingSoon/add",
+    async (info, { rejectWithValue, fulfillWithValue }) => {
+        try {
+        const { data } = await axios.post(`${baseurl}/admin/comming/add/`,info,
+        {
+            withCredentials:true
+        }
+        );
+        return fulfillWithValue(data);
+
+        } catch (error) {
+        return rejectWithValue(error.response.data);
+        }
+    }
+    );
+
+
 
 
 
@@ -211,10 +268,8 @@ export const adminReducer = createSlice({
         state.isAllNewslettersDeleted=false;
         state.isFranchiseAdded=false;
         state.isFranchiseDeleted=false;
-
-        
-
-
+        state.isCoomingSoonDeleted=false;
+        state.isCoomingSoonAdded=false;
     }
    },
     extraReducers: (builder) => {
@@ -350,6 +405,46 @@ export const adminReducer = createSlice({
             state.error=action.payload.message
             
         });    
+// get all comming soon
+        builder.addCase(getAllCommingSoon.fulfilled, (state,action) => {
+            state.loading = false;
+            state.commingSoon = action.payload;
+        });
+        builder.addCase(getAllCommingSoon.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(getAllCommingSoon.rejected, (state,action) => {
+            state.loading = false;
+            state.error=action.payload.message
+            
+        });
+// delete one comming soon
+        builder.addCase(deleteOneCommingSoon.fulfilled, (state) => {
+            state.loading = false;
+            state.isCoomingSoonDeleted = true;
+        });
+        builder.addCase(deleteOneCommingSoon.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(deleteOneCommingSoon.rejected, (state,action) => {
+            state.loading = false;
+            state.error=action.payload.message
+            
+        });
+
+// add one comming soon
+        builder.addCase(addOneCommingSoon.fulfilled, (state) => {
+            state.loading = false;
+            state.isCoomingSoonAdded = true;
+        });
+        builder.addCase(addOneCommingSoon.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(addOneCommingSoon.rejected, (state,action) => {
+            state.loading = false;
+            state.error=action.payload.message
+            
+        });
 
     },
 });

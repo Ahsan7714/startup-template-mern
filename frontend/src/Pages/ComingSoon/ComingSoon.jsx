@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../Components/Dashboard/Sidebar/Sidebar";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { addOneCommingSoon, clearState, deleteOneCommingSoon, getAllCommingSoon } from "../../store/reducers/adminReducers";
+import toast from "react-hot-toast";
 
 
 const ComingSoon = () => {
@@ -10,24 +13,12 @@ const ComingSoon = () => {
     franchiseAddress: "",
     email: "",
   });
+  const dispatch=useDispatch()
+  const {commingSoon, isCoomingSoonDeleted,
+    isCoomingSoonAdded,
+}=useSelector(state=>state.admin)
 
-  const [franchiseList, setFranchiseList] = useState([
-    {
-      name: "Franchise 1",
-      address: "Street no 4 Calefornia,America ",
-    },
-    {
-        name: "Franchise 1",
-        address: "Street no 4 Calefornia,America ",
-      },    {
-        name: "Franchise 1",
-        address: "Street no 4 Calefornia,America ",
-      },    {
-        name: "Franchise 1",
-        address: "Street no 4 Calefornia,America ",
-      },
-    // Add more dummy data as needed
-  ]);
+
 
   // Event handler for form input changes
   const handleInputChange = (e) => {
@@ -41,9 +32,41 @@ const ComingSoon = () => {
   // Event handler for "Add Location" button click
   const handleAddLocation = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    // You can perform additional actions here, like sending the data to the server.
+    dispatch(addOneCommingSoon({name:formData.franchiseName,address:formData.franchiseAddress,email:formData.email}))
   };
+  useEffect(() => {
+    dispatch(getAllCommingSoon());
+  }, [dispatch]);
+  
+  useEffect(() => {
+    if (isCoomingSoonAdded) {
+      setFormData({
+        franchiseName: "",
+        franchiseAddress: "",
+        email: "",
+      });
+      toast.success("Franchise Added Successfully");
+    }
+    dispatch(clearState());
+    dispatch(getAllCommingSoon());
+
+  }, [isCoomingSoonAdded,dispatch]);
+  
+  useEffect(() => {
+    if (isCoomingSoonDeleted) {
+      toast.success("Franchise Deleted Successfully");
+    }
+
+    
+    dispatch(clearState());
+    dispatch(getAllCommingSoon());
+  
+  }, [isCoomingSoonDeleted,dispatch]);
+  
+
+const handleDelete=(id)=>{
+  dispatch(deleteOneCommingSoon(id))
+}
 
   return (
     <div>
@@ -144,12 +167,12 @@ const ComingSoon = () => {
               </tr>
             </thead>
             <tbody className="text-[14px]  rounded-lg ">
-              {franchiseList.map((franchise, index) => (
+              {commingSoon?.map((franchise, index) => (
                 <tr key={index} className="border-b border-[#00000041] ">
                   <td className="py-4">{franchise.name}</td>
                   <td>{franchise.address}</td>
                   <td>
-                    <RiDeleteBin5Fill className="p-[6px] bg-red-600 text-[26px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer" />
+                    <RiDeleteBin5Fill className="p-[6px] bg-red-600 text-[26px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer" onClick={()=>handleDelete(franchise._id)} />
                   </td>
                 </tr>
               ))}

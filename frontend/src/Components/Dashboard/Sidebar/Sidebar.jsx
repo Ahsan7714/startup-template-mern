@@ -3,7 +3,7 @@ import { RiDashboard2Fill } from 'react-icons/ri';
 import logo from '../../../../public/images/logo.png';
 import { GiGlassShot } from 'react-icons/gi';
 import { BiSolidCategory } from 'react-icons/bi';
-import { FaRegNewspaper } from 'react-icons/fa6';
+import { FaHouseMedical, FaRegNewspaper } from 'react-icons/fa6';
 import { MdAddBusiness } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { TiThMenu } from "react-icons/ti";
@@ -14,7 +14,7 @@ import { logout } from '../../../store/reducers/franchiseReducer';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { useEffect } from 'react';
 import Loader from '../../Loader/Loader';
-
+import "./Sidebar.css"
 const Sidebar = () => {
   const location = useLocation();
 const dispatch=useDispatch()
@@ -34,11 +34,20 @@ if(loading){
 }
 
   return (
-    <div className='bg-white shadow-2xl h-[100vh] fixed w-[19%] flex flex-col items-center py-4 gap-14'>
-      <div>
-      <Link to="/"><img src={logo} alt="" className='h-[55px] ml-3' /></Link>
-      </div>
+    <div className='bg-white shadow-2xl h-[100vh] overflow-y-scroll fixed w-[19%] flex flex-col items-center  custom-scrollbar py-10 gap-10'>
+      <img src={logo} alt="" className='w-[100px] h-[100px] object-contain  ' />
       <div className='flex flex-col gap-5'>
+      <Link
+          to='/'
+          className={`flex items-center ${
+          
+              
+               'text-black bg-white'
+          } px-2 py-2 gap-2 rounded-md hover:pl-3 transform transition-all duration-300 ease-in-out`}
+        >
+          <FaHouseMedical className='text-[20px]' />
+          <p className='text-[18px] font-semibold'>Home</p>
+        </Link>
         {
           user && user.role=="admin" &&
           (
@@ -91,6 +100,17 @@ if(loading){
           <FaRegNewspaper className='text-[20px]' />
           <p className='text-[18px] font-semibold'>NewsLetter</p>
         </Link>
+        <Link
+          to='/dashboard/comingsoon'
+          className={`flex items-center ${
+            location.pathname === '/dashboard/comingsoon'
+              ? 'bg-[#3f691f] text-white'
+              : 'text-black bg-white'
+          } px-2 py-2 gap-2 rounded-md hover:pl-3  w-[180px] transform transition-all duration-300 ease-in-out`}
+        >
+          < MdOutlineWatchLater className='text-[20px]' />
+          <p className='text-[18px] font-semibold'>Coming Soon</p>
+        </Link>
 </>
 
             
@@ -100,6 +120,7 @@ if(loading){
 
 
         }
+        
         <Link
           to='/dashboard/menu'
           className={`flex items-center ${
@@ -133,17 +154,7 @@ if(loading){
           <GiGlassShot className='text-[20px]' />
           <p className='text-[18px] font-semibold'>Drinks</p>
         </Link>
-        <Link
-          to='/dashboard/comingsoon'
-          className={`flex items-center ${
-            location.pathname === '/dashboard/comingsoon'
-              ? 'bg-[#3f691f] text-white'
-              : 'text-black bg-white'
-          } px-2 py-2 gap-2 rounded-md hover:pl-3  w-[180px] transform transition-all duration-300 ease-in-out`}
-        >
-          < MdOutlineWatchLater className='text-[20px]' />
-          <p className='text-[18px] font-semibold'>Coming Soon</p>
-        </Link>
+       
 <button
 className={`flex items-center ${
             

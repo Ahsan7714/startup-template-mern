@@ -8,6 +8,7 @@ import Loader from "../../Components/Loader/Loader";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom/dist/umd/react-router-dom.development";
 
 const Dashbaord = () => {
   const [showModal, setShowModal] = useState(false);
@@ -30,7 +31,7 @@ const Dashbaord = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
   const {allFranchises,loading,isFranchiseAdded,error,isFranchiseDeleted} = useSelector(state => state.admin)
- 
+ const {user}=useSelector(state=>state.franchise)
 
 
   
@@ -106,15 +107,21 @@ useEffect(() => {
 useEffect(() => {
   if(error){
     toast.error(error);
-    dispatch(clearState());
   }
+  dispatch(clearState());
 }, [error,dispatch])
 
-
+const navigate=useNavigate()
+useEffect(() => {
+  if(!user || user.role !== "admin"){
+    navigate("/")
+  }
+  }, [user])
 
   if (loading) {
     return <Loader/>;
   }
+
 
   return (
     <div className="flex">
