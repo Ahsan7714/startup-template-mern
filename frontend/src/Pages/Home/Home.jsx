@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { addNewsLetter } from "../../store/reducers/newsLetterReducers";
 import Popup from "../../Components/Popup-home/popup";
+import { Link } from "react-router-dom";
 const Home = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -156,13 +157,13 @@ menuItems.map((item,index)=>{
     <div className="menu_item" key={index}>
       <img src={`./images/${item}.png`} alt="" />
       <h2 className="text">{item}</h2>
-      <button className="hover_button">SEE MORE </button>
+      <Link to="/menu" className="hover_button">SEE MORE </Link>
     </div>
   )
 })
 }
 <p></p>
-<button className="view_menu_btn">View Menu</button>
+<Link to={"/menu"} className="view_menu_btn">View Menu</Link>
       </div>
     </div>
       </div>
