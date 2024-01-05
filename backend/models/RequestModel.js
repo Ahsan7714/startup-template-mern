@@ -41,10 +41,7 @@ const requestSchema=new mongoose.Schema({
         type:String,
         required:true,
     },
-    provideAddress:{
-        type:String,
-        required:true,
-    },
+
 })
 
 module.exports=mongoose.model("Request",requestSchema)

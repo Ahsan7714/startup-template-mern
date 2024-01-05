@@ -27,15 +27,15 @@ exports.getAllLocations=catchAsyncError(async(req,res,next)=>{
 
 
 exports.addLocation=catchAsyncError(async(req,res,next)=>{
-const {email,name,image,address,thirdPartyLink,close_time,open_time}=req.body; 
+const {email,name,address,thirdPartyLink,closingTime,openTime}=req.body; 
     const franchiseExist=await Franchise.findOne({email:req.body.email})
     if(!franchiseExist){
-        return next(new CustomError("Franchise not found",404))
+        return next(new CustomError("There is no  Franchise with  this email",404))
     }
 
     const locationExist=await Location.findOne({email:req.body.email})
     if(locationExist){
-        return next(new CustomError("Location added for a franchinse associated with this email ",400))
+        return next(new CustomError( "Already Location added for a franchinse associated with this email ",400))
     }
 
 const franchise=franchiseExist._id;
@@ -44,8 +44,7 @@ const franchise=franchiseExist._id;
 
 
 
-
-    const location=await Location.create({email,name,image,address,thirdPartyLink,close_time,open_time,franchise})
+    const location=await Location.create({email,name,image:franchiseExist?.franchise.image,address,thirdPartyLink,closingTime,openTime,franchise})
     res.status(200).json({success:true,message:"Location added successfully"})
 })
 

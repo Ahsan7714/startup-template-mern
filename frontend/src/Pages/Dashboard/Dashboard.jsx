@@ -1,65 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../Components/Dashboard/Sidebar/Sidebar";
-import { MdAccountCircle } from "react-icons/md";
+import { MdAccountCircle, MdOutlineClose } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { addFranchise, clearState, deleteFranchise, getAllFranchises } from "../../store/reducers/adminReducers";
+import toast from "react-hot-toast";
+import Loader from "../../Components/Loader/Loader";
+import { FaEdit, FaEye } from "react-icons/fa";
+import { FaDeleteLeft } from "react-icons/fa6";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 const Dashbaord = () => {
+  const [showModal, setShowModal] = useState(false);
+  const handleEyeClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   const [franchiseData, setFranchiseData] = useState({
     name: "",
     email: "",
     phone: "",
-    ownerName: "",
+    owner_name: "",
     address:'',
     password:'',
   });
+  const [selectedFile, setSelectedFile] = useState(null);
+  const dispatch = useDispatch();
+  const {allFranchises,loading,isFranchiseAdded,error,isFranchiseDeleted} = useSelector(state => state.admin)
+ 
+
+
+  
+  useEffect(() => {
+    dispatch(getAllFranchises())
+  }, [dispatch])
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    // Check if a file is selected
-    if (file) {
-      // Check if the selected file is an image
-      const isImage = file.type.startsWith("image/");
-
-      if (isImage) {
-        // Check if the file size is less than or equal to 200KB
-        const maxSizeKB = 200;
-        if (file.size <= maxSizeKB * 1024) {
-          setSelectedFile(file);
-        } else {
-          alert("Please choose an image with a size less than or equal to 200KB.");
-        }
-      } else {
-        alert("Please choose a valid image file.");
+    const reader = new FileReader();
+    
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        // setAvatarPreview(reader.result);
+        setSelectedFile(reader.result);
       }
-    }
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
   };
-  const [franchiseList, setFranchiseList] = useState([
-    {
-      name: "Franchise 1",
-      email: "franchise1@example.com",
-      phone: "1234567890",
-      ownerName: "Owner 1",
-    },
-    {
-      name: "Franchise 2",
-      email: "franchise2@example.com",
-      phone: "9876543210",
-      ownerName: "Owner 2",
-    },
-    ,
-    {
-      name: "Franchise 2",
-      email: "franchise2@example.com",
-      phone: "9876543210",
-      ownerName: "Owner 2",
-    },,
-    {
-      name: "Franchise 2",
-      email: "franchise2@example.com",
-      phone: "9876543210",
-      ownerName: "Owner 2",
-    },
-    // Add more dummy data as needed
-  ]);
+useEffect(() => {
+  if(isFranchiseDeleted){
+    toast.success("Franchise Deleted Successfully")
+    dispatch(getAllFranchises())
+    dispatch(clearState())
+  }
+}, [isFranchiseDeleted,dispatch])
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -71,8 +68,53 @@ const Dashbaord = () => {
 
   const handleAddFranchise = () => {
     console.log("Franchise Data:", franchiseData);
-    // You can perform additional actions here, like sending the data to the server.
+    const data={
+      email:franchiseData.email,
+      password:franchiseData.password,
+      franchise:{
+        name:franchiseData.name,
+        phone:franchiseData.phone,
+        owner_name:franchiseData.owner_name,
+        address:franchiseData.address,
+        image:selectedFile
+      }
+    }
+    dispatch(addFranchise(data));
   };
+
+  const handleDelete=(id)=>{
+    dispatch(deleteFranchise(id))
+  }
+
+  useEffect(() => {
+    if (isFranchiseAdded) {
+      setFranchiseData({
+        name: "",
+        email: "",
+        phone: "",
+        owner_name: "",
+        address: "",
+        password: "",
+      });
+      setSelectedFile(null);
+      toast.success("Franchise Added Successfully");
+      dispatch(getAllFranchises());
+      dispatch(clearState());
+    }
+  }, [isFranchiseAdded, dispatch]);
+  
+useEffect(() => {
+  if(error){
+    toast.error(error);
+    dispatch(clearState());
+  }
+}, [error,dispatch])
+
+
+
+  if (loading) {
+    return <Loader/>;
+  }
 
   return (
     <div className="flex">
@@ -144,8 +186,8 @@ const Dashbaord = () => {
                   </label>
                   <input
                     type="text"
-                    name="ownerName"
-                    value={franchiseData.ownerName}
+                    name="owner_name"
+                    value={franchiseData.owner_name}
                     onChange={handleInputChange}
                     placeholder="Enter Franchise owner name"
                     className=" outline-none border  border-[#00000068] text-[#000000b8] bg-white rounded-md w-[330px] py-2 px-2 placeholder:text-[#000000b8]"
@@ -181,10 +223,9 @@ const Dashbaord = () => {
                 </div>
 
               </div>
-              <div className="flex justify-between">
               <div className="flex flex-col gap-3">
               <label htmlFor="" className="text-[#000000e4] text-[16px]">
-                Add Franchise Picture
+                Drink Picture
               </label>
               <div className="relative">
                 <button className="cursor-pointer bg-white shadow-xl h-[42px] px-3 rounded-lg text-[15px]">
@@ -197,16 +238,15 @@ const Dashbaord = () => {
                 />
               </div>
             </div>
-              <div className="flex flex-col  mt-8">
-                  <button
-                    type="submit"
-                    className="bg-[#3f691f] text-white py-2 px-8 font-semibold rounded-lg border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300"
-                  >
-                    Add Franchise
-                  </button>
+              <div className="flex flex-1 flex-col gap-2 ">
+                <button
+                type="button"
+                onClick={handleAddFranchise}
+                className="bg-[#3f691f] text-white py-2  px-3 font-semibold rounded-lg w-[150px] border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300 "
+              >
+                Add Franchise
+              </button>
                 </div>
-
-              </div>
 
             </form>
           </div>
@@ -221,18 +261,87 @@ const Dashbaord = () => {
         <th >Email</th>
         <th >Number</th>
         <th> Owner Name</th>
+        <th>
+          Actions
+        </th>
 
               </tr>
             </thead>
             <tbody className="text-[14px] my-10 pb-8 rounded-lg">
-              {franchiseList.map((franchise, index) => (
+            
+              {
+                loading ?<div className="flex items-center justify-center w-full"><h1 className="text-center mx-auto  w-fit ">...</h1></div> :
+                
+                
+                allFranchises?.map((single, index) => {
+               return (
                 <tr key={index} className="border-b border-[#0000001b]">
-                  <td className="py-5">{franchise.name}</td>
-                  <td>{franchise.email}</td>
-                  <td>{franchise.phone}</td>
-                  <td>{franchise.ownerName}</td>
+                  <td className="py-5">{single?.franchise.name}</td>
+                  <td>{single?.email}</td>
+                  <td>{single?.franchise.phone}</td>
+                  <td>{single?.franchise.owner_name}</td>
+                  <td className="flex justify-center gap-2">
+                    <button className="bg-[#3f691f] text-white py-2  px-3 font-semibold rounded-lg mt-2 border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300 ">
+                      <FaEye onClick={()=>handleEyeClick()} />
+                    </button>
+                    <button className="bg-[#3f691f] text-white py-2  px-3 font-semibold rounded-lg mt-2 border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300 ">
+                      <RiDeleteBin5Fill onClick={()=>handleDelete(single._id)}/>
+                    </button>
+                  </td>
+                  {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ">
+          <div className="bg-white p-7 rounded-md w-[50%] relative">
+            {/* Modal content */}
+            <div className="flex flex-col gap-4">
+              <p className="text-[25px] text-[#3f691f] font-semibold pb-5 text-center">
+                Details
+              </p>
+              <div className="flex flex-col gap-4 ">
+                <div className="flex justify-between">
+                  <p className="text-[18px] font-semibold">Franchise Name </p>
+                  <p>{single.franchise.name}</p>
+                </div>
+                <div className="flex justify-between ">
+                  <p className="text-[18px] font-semibold">Email</p>
+                  <p>{single.email}</p>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4 ">
+                <div className="flex justify-between ">
+                  <p className="text-[18px] font-semibold">address</p>
+                  <p>{single.franchise.address}</p>
+                </div>
+                <div className="flex justify-between ">
+                  <p className="text-[18px] font-semibold">Phone</p>
+                  <p>{single.franchise.phone}</p>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4 ">
+                <div className="flex justify-between ">
+                  <p className="text-[18px] font-semibold">Owner Name</p>
+                  <p>{single.franchise.owner_name}</p>
+                </div>
+               
+              </div>
+             
+              <div className="flex flex-col ">
+                <div className="flex  gap-4 align-middle items-center">
+                  <p className="text-[18px] font-semibold">Note :</p>
+                  <h1 className="">These are the general details of client, for more information you can contact the with email</h1>
+                </div>
+              </div>
+            </div>
+            <button onClick={handleCloseModal} className="text-[#3f691f]   absolute top-1 right-10 text-3xl mt-5"><MdOutlineClose/> </button>
+          </div>
+        </div>
+      )}
+
                 </tr>
-              ))}
+              )
+              }
+              )
+              
+              }
             </tbody>
           </table>
         </div>

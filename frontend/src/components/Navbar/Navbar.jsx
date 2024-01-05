@@ -3,11 +3,13 @@ import './Navbar.css'
 import { CiSearch } from "react-icons/ci";
 import { FaBars } from "react-icons/fa";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 const Navbar = () => {
     const [showSidebar,setShowSidebar]=useState(false)
     const handleSidebar=()=>{
         setShowSidebar(!showSidebar)
     }
+    const {user}=useSelector(state=>state.franchise)
   return (
     <>
 
@@ -52,6 +54,17 @@ const Navbar = () => {
                     Contact
                     </NavLink>
                 </li>
+
+                {
+                    user && (user.role==="admin" || user.role==="franchise") &&
+                    (
+                        <li>
+                    <NavLink onClick={()=>handleSidebar()} to="/dashboard">
+                    Dashboard
+                    </NavLink>  
+                </li>
+                    )
+                }
                 </ul>
             </div>
             <div className="custom_search_bar">
@@ -119,6 +132,18 @@ const Navbar = () => {
                     Contact
                     </NavLink>
                 </li>
+                    
+                    {
+                        user && (user.role==="admin" || user.role==="franchise") &&
+                        (
+                            <li>
+                        <NavLink onClick={()=>handleSidebar()} to="/dashboard">
+                        Dashboard
+                        </NavLink>
+                    </li>
+                        )
+                    }
+                
                 </ul>   
                 </div>
 

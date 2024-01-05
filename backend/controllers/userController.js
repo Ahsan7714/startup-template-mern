@@ -4,6 +4,8 @@ const User=require("../models/userModel");
 const CustomError = require("../utils/errorhandler");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
+const cloudinary = require("cloudinary");
+const Location=require("../models/locationModel")
 
 exports.getAllFranchises=catchAsyncError(async(req,res,next)=>{
     const users=await User.find({role:"franchise"});
@@ -25,6 +27,14 @@ exports.addFranchise=catchAsyncError(async(req,res,next)=>{
     if(franchiseExist){
         return next(new CustomError("Franchise already exist",400))
     }
+
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.franchise.image, {
+        folder: "franchises",
+        width: 800,
+        crop: "scale",
+      });
+      req.body.franchise.image=myCloud.secure_url;
+
     const user=await User.create(req.body)
     user.save();
     const menu = await Menu.create({ franchise: user._id, series: [] });
@@ -124,6 +134,11 @@ exports.deleteFranchise=catchAsyncError(async(req,res,next)=>{
     if(!user){
         return next(new CustomError("Franchise not found",404))
     }
+    const location=await Location.findOne({franchise:id})
+
+    await Location.findByIdAndDelete(location._id)
+
+
     await User.findByIdAndDelete(id)
     res.status(200).json({success:true,message:"Franchise deleted successfully"})
 })
@@ -365,10 +380,18 @@ exports.contactUs=catchAsyncError(async(req,res,next)=>{
 
 // get own menu 
 exports.getOwnMenu = catchAsyncError(async (req, res, next) => {
-    const menu = await Menu.findOne({ franchise: req.user._id }).populate({
-        path: "series",
-        model: "Series",
+    const menu=await Menu.findOne({franchise:req.user._id}).populate({
+        path:"series",
+        populate:{
+            path:"drinks",
+            model:"Drink"
+        }
     })
+
+
+
+
+
     if (!menu) {
         return next(new CustomError("Menu not found", 404));
     }

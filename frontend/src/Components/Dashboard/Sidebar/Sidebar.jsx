@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { RiDashboard2Fill } from 'react-icons/ri';
 import logo from '../../../../public/images/logo.png';
@@ -9,9 +8,30 @@ import { MdAddBusiness } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { TiThMenu } from "react-icons/ti";
 import { MdOutlineWatchLater } from "react-icons/md";
+import { LuLogOut } from "react-icons/lu";
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../store/reducers/franchiseReducer';
+import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
+import { useEffect } from 'react';
+import Loader from '../../Loader/Loader';
 
 const Sidebar = () => {
   const location = useLocation();
+const dispatch=useDispatch()
+const navigate=useNavigate()
+const {user,loading}=useSelector(state=>state.franchise)  
+const handleLogout = () => {
+    dispatch(logout())
+    navigate("/")
+  }
+useEffect(() => {
+  if (!user) {
+    navigate("/");
+  }
+}, [user,navigate]);
+if(loading){
+  return <Loader/>
+}
 
   return (
     <div className='bg-white shadow-2xl h-[100vh] fixed w-[19%] flex flex-col items-center py-4 gap-14'>
@@ -19,7 +39,15 @@ const Sidebar = () => {
       <Link to="/"><img src={logo} alt="" className='h-[55px] ml-3' /></Link>
       </div>
       <div className='flex flex-col gap-5'>
-        <Link
+        {
+          user && user.role=="admin" &&
+          (
+
+
+<>
+
+
+<Link
           to='/dashboard'
           className={`flex items-center ${
             location.pathname === '/dashboard'
@@ -63,6 +91,15 @@ const Sidebar = () => {
           <FaRegNewspaper className='text-[20px]' />
           <p className='text-[18px] font-semibold'>NewsLetter</p>
         </Link>
+</>
+
+            
+          )
+
+
+
+
+        }
         <Link
           to='/dashboard/menu'
           className={`flex items-center ${
@@ -107,6 +144,17 @@ const Sidebar = () => {
           < MdOutlineWatchLater className='text-[20px]' />
           <p className='text-[18px] font-semibold'>Coming Soon</p>
         </Link>
+<button
+className={`flex items-center ${
+            
+               'text-black bg-white'
+          } px-2 py-2 gap-2 rounded-md hover:pl-3  w-[180px] transform transition-all duration-300 ease-in-out`}
+          onClick={()=>handleLogout()}  >
+   <LuLogOut className='text-[20px]'  />
+          <p className='text-[18px] font-semibold'>Logout</p>
+</button>
+
+          
       </div>
     </div>
   );

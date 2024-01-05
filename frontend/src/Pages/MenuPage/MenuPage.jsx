@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom"
 import { useParams } from "react-router-dom/dist/umd/react-router-dom.development"
 import "./MenuPage.css"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { getAllSeriesOfAdmin } from "../../store/reducers/userReducer"
 const MenuPage = () => {
+
+    const dispatch=useDispatch()
+    const {allAdminSeries}=useSelector(state=>state.user)
+
+useEffect(() => {
+    dispatch(getAllSeriesOfAdmin())
+}, [dispatch])
+
     const drinks=[
         {
 name:"Puffle Waffle",
@@ -57,12 +68,12 @@ image:"puffle waffle"
     <ul>
 
         {
-            drinks.map((drink)=>{
+            allAdminSeries.map((drink)=>{
             return(
                 <>
 
                 <li className={`drink ${selectedDrink?.name==drink.name?"selected_drink":""}`}  >
-                  <Link to={`/menu/${drink.name}`} >  <h3>{drink.name}</h3></Link>
+                  <Link to={`/menu/${drink._id}`} >  <h3>{drink.name}</h3></Link>
                 </li>
                 </>
             )
@@ -75,12 +86,12 @@ image:"puffle waffle"
     <ul>
 
         {
-            drinks.map((drink)=>{
+            allAdminSeries.map((drink)=>{
             return(
                 <>
 
                 <li className={`drink ${selectedDrink?.name==drink.name?"selected_drink":""}`}  >
-                  <Link to={`/menu/${drink.name}`} >  <h3>{drink.name}</h3></Link>
+                  <Link to={`/menu/${drink._id}`} >  <h3>{drink.name}</h3></Link>
                 </li>
                 </>
             )
@@ -92,13 +103,13 @@ image:"puffle waffle"
         <h1>SERIES</h1>
         <div className="inner_drinks_card_container ">
         {
-            drinks.map((drink)=>{
+            allAdminSeries.map((drink)=>{
                 return(
                     <>
-                    <Link to={`/menu/${drink.name}`} className="drink_card">
+                    <Link to={`/menu/${drink._id}`} className="drink_card">
 
                         <div className="drink_card_image">
-                            <img src={`./images/${drink.image}.png`} alt="" />
+                            <img src={`${drink.image}`} alt="" />
                         </div>
                         <div className="drink_card_title">
                             <h3>{drink.name}</h3>

@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import img1 from "../../assets/img1.png";
 import img2 from "../../assets/img2.png";
 import img3 from "../../assets/img3.png";
 import img4 from "../../assets/img4.png";
 import stripesbg from '../../assets/Stripesbg.png'
 import Carasoul from "../../Components/Contact-carasoul/Carasoul";
-
+import { useDispatch,useSelector } from "react-redux";
+import { addContactUs, clearState } from "../../store/reducers/userReducer"
+import toast from "react-hot-toast";
+import Loader from "../../Components/Loader/Loader";
 
 
 const Contact = () => {
@@ -14,6 +17,21 @@ const Contact = () => {
     email: "",
     message: "",
   });
+const {isAdded,loading} = useSelector(state => state.user)
+const dispatch = useDispatch();
+
+useEffect(() => {
+  if (isAdded && state.name !== "" && state.email !== "" && state.message !== "") {
+    toast.success("Message Sent Successfully");
+    setState({
+      name: "",
+      email: "",
+      message: "",
+    });
+    dispatch(clearState());
+  }
+}, [isAdded, state, dispatch]);
+
   const inputHandle = (e) => {
     setState({
       ...state,
@@ -22,8 +40,11 @@ const Contact = () => {
   };
   const submit = (e) => {
     e.preventDefault();
-    console.log(state);
+    dispatch( addContactUs(state))  
   };
+  if(loading){
+    return <Loader/>
+  }
   return (
     <div className=" flex flex-col">
       <div className="flex  items-center justify-center py-8">

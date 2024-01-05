@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 const {login,getOwnMenu, logout, contactUs}=require("../controllers/userController");
-const {addSeriesToMenu,addDrinkToSeriesInMenu,getAllSeriesAndDrinksInMenu,getAllSeriesInMenu,getAdminMenu,getAllDrinksInSeriesInMenu, deleteDrink,deleteSeries}=require("../controllers/menuController") 
+const {addSeriesToMenu,addDrinkToSeriesInMenu,getAllDrinksInMenu,getAllSeriesInMenu,getAdminMenu,getAllDrinksInSeriesInMenu, deleteDrink,deleteSeries}=require("../controllers/menuController") 
 const { isAuthenticatedUser } = require('../middleware/auth');
 const { searchLocation } = require('../controllers/locationController');
 const { addNewsLetter } = require('../controllers/newsLetterController');
@@ -29,6 +29,8 @@ router.route("/menu/series").get(isAuthenticatedUser,getAllSeriesInMenu)
 // getting all drinks of a series
 router.route("/menu/series/:seriesId/drinks").get(getAllDrinksInSeriesInMenu)
 
+// get all drinks of a franchise 
+router.route("/menu/drinks").get(isAuthenticatedUser,getAllDrinksInMenu)
 // ADMIN MENU { DONE }
 
 // get all series in admin menu
@@ -45,7 +47,7 @@ router.route("/search/location").get(searchLocation)
 router.route("/newsletter/add").post(addNewsLetter)
 
 // Logout 
-router.route("/logout").post(logout)
+router.route("/logout").get(logout)
 router.route("/franchise/request").post(addRequest  )
 
 router.route("/contact-us").post(contactUs)
@@ -55,4 +57,12 @@ router.route("/menu/own").get(isAuthenticatedUser,getOwnMenu)
 
 // comming soon request 
 router.route("/comming").get(getAllCommingSoonFranchise)
+// load user
+router.route("/me").get(isAuthenticatedUser,(req,res)=>{
+
+    res.status(200).json({
+        success:true,
+        user:req.user
+    })
+})
 module.exports = router;

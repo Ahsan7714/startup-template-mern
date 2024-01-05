@@ -1,21 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FranchiseForm from "../../Components/Franchise Form/FranchiseForm";
+import { useDispatch, useSelector } from "react-redux";
+import { clearState, login } from "../../store/reducers/franchiseReducer";
+import Loader from "../../Components/Loader/Loader";
+import toast from "react-hot-toast";
 
 const Franchise = () => {
   const [state, setState] = useState({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
+  const {isLogin,loading,error} = useSelector(state => state.franchise)
+  
   const inputHandle = (e) => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
     });
   };
+useEffect(() => {
+  if (isLogin && state.email !== "" && state.password !== "") {
+    setState({
+      email: "",
+      password: "",
+    });
+    toast.success("Login Successfully");
+    dispatch(clearState());
+  }else if(error){
+    toast.error(error)
+    dispatch(clearState());
+  }
+}, [isLogin, state, dispatch,error]);
+
   const submit = (e) => {
     e.preventDefault();
-    console.log(state);
+    dispatch( login(state))
   };
+  if(loading){
+    return <Loader/>
+  }
   return (
     <div className="flex flex-col gap-20 my-32">
       <div className="flex flex-col items-center">
