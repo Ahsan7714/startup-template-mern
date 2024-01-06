@@ -183,6 +183,7 @@ export const login = createAsyncThunk(
                                         }
                                         );
                                         // remove token from cookie
+                                        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
                                         return fulfillWithValue(data);
                                         } catch (error) {
