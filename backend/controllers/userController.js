@@ -169,6 +169,7 @@ exports.logout=catchAsyncError(async(req,res,next)=>{
     res.cookie("token","",{
         expires: new Date(0),
         path:"/",
+        domain: "r-b.vercel.app",
         httpOnly:true,
         secure:true,
         sameSite:"none"
