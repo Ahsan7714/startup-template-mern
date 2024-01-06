@@ -166,13 +166,17 @@ exports.login=catchAsyncError(async(req,res,next)=>{
 
 
 exports.logout=catchAsyncError(async(req,res,next)=>{
-    res.cookie("token","",{
+    console.log("Clearing cookie...");
+    res.cookie("token", "", {
         expires: new Date(0),
         domain: "r-b.vercel.app",
-        path:"/",
-        sameSite:"none"
-    })
-    res.status(200).json({success:true,message:"Logged out successfully"})
+        path: "/",
+        secure: true, // Set to true if using HTTPS
+        sameSite: "None"
+    });
+    console.log("Cookie cleared.");
+    res.status(200).json({ success: true, message: "Logged out successfully" });
+    
 })
 
 
