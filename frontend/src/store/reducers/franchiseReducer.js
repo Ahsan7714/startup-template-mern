@@ -40,7 +40,7 @@ export const login = createAsyncThunk(
         "/get/all/franchise/series",
         async (info, { rejectWithValue, fulfillWithValue }) => {
             try {
-            const { data } = await axios.get(`${baseurl}/user//menu/series`,
+            const { data } = await axios.get(`${baseurl}/user/menu/series`,
             {
                 withCredentials:true
             }
