@@ -35,7 +35,7 @@ if(loading){
 
   return (
     <div className='bg-white shadow-2xl h-[100vh] overflow-y-scroll fixed w-[19%] flex flex-col items-center  custom-scrollbar py-10 gap-10'>
-      <img src={logo} alt="" className='w-[100px] h-[100px] object-contain  ' />
+      <img src={logo} alt="" className='w-[170px] h-[200px] object-contain ' />
       <div className='flex flex-col gap-5'>
       <Link
           to='/'

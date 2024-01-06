@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom/dist/umd/react-router-dom.developm
 
 const Dashbaord = () => {
   const [showModal, setShowModal] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
+
   const handleEyeClick = () => {
     setShowModal(true);
   };
@@ -40,16 +42,17 @@ const Dashbaord = () => {
   }, [dispatch])
   const handleFileChange = (e) => {
     const reader = new FileReader();
-    
+
     reader.onload = () => {
       if (reader.readyState === 2) {
-        // setAvatarPreview(reader.result);
-        setSelectedFile(reader.result);
+        setSelectedFile(reader.result); // Store the file itself
+        setImagePreview(reader.result);
       }
     };
 
     reader.readAsDataURL(e.target.files[0]);
   };
+
 useEffect(() => {
   if(isFranchiseDeleted){
     toast.success("Franchise Deleted Successfully")
@@ -98,6 +101,7 @@ useEffect(() => {
         password: "",
       });
       setSelectedFile(null);
+      setImagePreview(null);
       toast.success("Franchise Added Successfully");
       dispatch(getAllFranchises());
       dispatch(clearState());
@@ -244,6 +248,13 @@ useEffect(() => {
                   onChange={handleFileChange}
                 />
               </div>
+              {imagePreview && (
+                  <img
+                    src={imagePreview}
+                    alt="Series Preview"
+                    className=" w-[150px] h-[100px] object-cover rounded-md"
+                  />
+                )}
             </div>
               <div className="flex flex-1 flex-col gap-2 ">
                 <button
@@ -291,7 +302,7 @@ useEffect(() => {
                     <button className="bg-[#3f691f] text-white py-2  px-3 font-semibold rounded-lg mt-2 border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300 ">
                       <FaEye onClick={()=>handleEyeClick()} />
                     </button>
-                    <button className="bg-[#3f691f] text-white py-2  px-3 font-semibold rounded-lg mt-2 border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300 ">
+                    <button className="bg-red-600 text-white py-2  px-3 font-semibold rounded-lg mt-2 border   ">
                       <RiDeleteBin5Fill onClick={()=>handleDelete(single._id)}/>
                     </button>
                   </td>

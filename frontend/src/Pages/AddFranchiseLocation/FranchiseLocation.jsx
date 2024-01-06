@@ -223,7 +223,7 @@ if(loading){
                   <td className="py-4">{franchise.name}</td>
                   <td>{franchise.address}</td>
                   <td>
-                    <RiDeleteBin5Fill className="p-[6px] bg-red-600 text-[26px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer" onClick={()=>deleteLocationFromHere(franchise._id)} />
+                    <RiDeleteBin5Fill className="p-[6px] bg-red-600 text-[26px] text-white rounded hover:shadow-lg hover:shadow-red-500/50 cursor-pointer justify-end float-right mr-28" onClick={()=>deleteLocationFromHere(franchise._id)} />
                   </td>
                 </tr>
               ))}

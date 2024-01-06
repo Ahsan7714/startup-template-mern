@@ -32,7 +32,7 @@ const DashboardMenu = () => {
       <Sidebar />
       <div className='ml-[27%]'>
         <div>
-          <div className='bg-white shadow-lg w-[90%] p-10 rounded-lg'>
+          <div className='bg-white shadow-lg w-[90%] p-10 rounded-lg min-h-[100vh] font-[Garet]'>
             {selectedSeries ? (
               <div>
                 <div className='flex justify-between pb-10 items-center'>
@@ -41,7 +41,7 @@ const DashboardMenu = () => {
                 </h2>
                 <button
                     onClick={handleBackClick}
-                    className=' bg-[#3f691f] flex items-center gap-2 text-white py-2 px-2 font-semibold rounded-lg h-[42px] w-[150px] border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300'
+                    className=' bg-[#3f691f] flex items-center gap-2 text-white py-2 px-2 font-semibold rounded-lg h-[42px] w-[160px] border hover:border-[#3f691f] hover:bg-white hover:text-[#3f691f] duration-300'
                   ><IoMdArrowRoundBack />
                     Back to Menu
                   </button>
@@ -62,8 +62,8 @@ const DashboardMenu = () => {
                           className='h-[300px] object-cover'
                         />
                       </div>
-                      <div className='drink_card_title mt-2'>
-                        <h3>{subSeries.name}</h3>
+                      <div className='drink_card_title my-4'>
+                        <h3 className='text-[18px] capitalize'>{subSeries.name}</h3>
                       </div>
                     </div>
                   ))}
@@ -96,8 +96,8 @@ const DashboardMenu = () => {
                           className='h-[300px] object-cover'
                         />
                       </div>
-                      <div className='drink_card_title mt-2'>
-                        <h3>{series.name}</h3>
+                      <div className='drink_card_title mt-4 mb-4'>
+                        <h3 className='text-[18px] capitalize'>{series.name}</h3>
                       </div>
                     </div>
                   ))}

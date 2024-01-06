@@ -17,6 +17,7 @@ exports.addSeriesToMenu = catchAsyncError(async (req, res, next) => {
     width: 800,
     crop: "scale",
   });
+  console.log(myCloud)
 
 
 

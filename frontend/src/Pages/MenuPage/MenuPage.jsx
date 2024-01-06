@@ -109,7 +109,7 @@ image:"puffle waffle"
                     <Link to={`/menu/${drink._id}`} className="drink_card">
 
                         <div className="drink_card_image">
-                            <img src={`${drink.image}`} alt="" />
+                            <img src={`${drink.image}`} alt=""/>
                         </div>
                         <div className="drink_card_title">
                             <h3>{drink.name}</h3>

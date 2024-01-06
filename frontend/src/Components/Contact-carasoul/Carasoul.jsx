@@ -25,7 +25,7 @@ const Carasoul = () => {
             img: img4, // Use the imported variable directly
           },
           {
-            img: img1, // Use the imported variable directly
+            img: img3, // Use the imported variable directly
           },
         
       ];
