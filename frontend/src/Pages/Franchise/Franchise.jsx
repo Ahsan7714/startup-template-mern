@@ -43,7 +43,7 @@ useEffect(() => {
   return (
     <div className="flex flex-col gap-20 my-32">
       <div className="flex flex-col items-center">
-        <h1 className="text-[#3f691f] text-[45px] font-semibold mx-6 text-center">
+        <h1 className="text-[#3f691f] text-[45px] font-semibold text-center">
           Login to your franchise account
         </h1>
         <form

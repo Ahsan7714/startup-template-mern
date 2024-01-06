@@ -1,5 +1,4 @@
 import React from 'react'
-import bgy from  '../../assets/bg-mb.png';
 import mobile from '../../assets/mobile.png'
 import googleplay from '../../assets/googleplay.png'
 import people from '../../assets/people.png'
@@ -8,25 +7,26 @@ import discount from '../../assets/discount.png'
 import payment from '../../assets/payment.png'
 import dollar from '../../assets/dollar.png'
 import badge from '../../assets/badge.png'
+import './MobileApp.css'; 
 
 
 
 const MobileApp = () => {
   return (
-    <div className='mb-[220%] lg:mb-[15%]'>
-        <img src={bgy} alt="" className='h-[200vh] lg:w-[30%] w-[60%] relative'/>
-        <div className='flex'>
+    <div className='mobile-app-container '>
+        <div className='flex justify-center items-center lg:flex-row  flex-col lg:gap-[80px] mx-10 lg:mx-0'>
             <div>
-                <img src={mobile} alt="" className='absolute lg:top-36 lg:left-40 left-10 top-32'/>
+                <img src={mobile} alt="" className=''/>
             </div>
-            <div className='absolute top-[80%] left-[10%] lg:top-[35%] lg:left-[50%] flex flex-col '>
+            <div className='  flex flex-col my-10'>
             <h1 className='text-[#3f691f] lg:text-[50px] text-[40px] font-extrabold pb-5'>COMING SOON</h1>
             <p className='text-[24px]'>Start earning rewards with easy </p>
             <p className='text-[24px]'>ordering & delivery</p>
             <img src={googleplay} alt="" className='w-[200px] pt-10  ' />
             </div>
         </div>
-        <div className='absolute lg:top-[45rem] top-[70rem] left-[10%] w-[90%] '>
+        <div className='w-full flex justify-end'>
+            <div className='flex flex-col w-[90%]'>
             <h1 className='text-[#3f691f] text-[40px] font-bold pb-5'>FEATURES</h1>
             <div className='bg-[#87a972] w-full h-fit lg:h-[105vh] text-white flex flex-col gap-[4rem] lg:gap-[4rem] py-[6%] lg:py-0  lg:pt-[5%] rounded-s-[10px] '>
                 <div className='flex lg:flex-row flex-col justify-center gap-[4rem] lg:gap-[12rem]  items-center'>
@@ -64,6 +64,8 @@ const MobileApp = () => {
                 </div>
                 </div>
             </div>
+            </div>
+            
         </div>
     </div>
   )

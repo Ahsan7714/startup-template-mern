@@ -1,0 +1,8 @@
+@media screen and (max-width:375px) {
+    .contact-f img{
+        height: 100vh;
+    }
+    .contact-fa{
+        top: 100%;
+    }
+}

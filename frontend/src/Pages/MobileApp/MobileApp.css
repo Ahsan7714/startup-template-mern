@@ -1,0 +1,17 @@
+.mobile-app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8rem;
+    padding: 5rem 0rem;
+    background-image: url(../../assets/bg-mb.png);
+    background-size: 40% 70%;
+    background-repeat: no-repeat;
+}
+@media screen and (max-width:414px) {
+    .mobile-app-container {
+
+        background-size: 50% 70%;
+    }
+    
+}

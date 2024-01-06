@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearState, sendFranchiseRequest } from "../../store/reducers/userReducer";
 import toast from "react-hot-toast";
 import Loader from "../Loader/Loader";
+import './FranchiseForm.css'
 
 const FranchiseForm = () => {
   const [state, setState] = useState({
@@ -56,16 +57,16 @@ useEffect(() => {
     return <Loader />;
   }
   return (
-    <div className=" relative mb-[24%] md:mb-[30%] lg:mb-[10%]">
-      <div className="bg-[#87a972] text-white w-[70%] h-[100vh] flex justify-end rounded-e-[20px] relative">
+    <div className="f-container">
+      <div className="bg-[#87a972] text-white lg:w-[60%] lg:h-[60vh]  flex justify-end rounded-e-[20px] f-container-a">
         <div className=" py-20 lg:px-32 text-center">
           <h1 className="text-[35px]">Interested in Franchising?</h1>
           <p className="text-[20px]">Contact us below</p>
         </div>
       </div>
-      <div className="absolute top-[30%] lg:top-[40%] left-7 lg:left-[20%] px-2 transform translate(-50%, -50%)">
-        <img src={bg} alt="" className="lg:h-fit h-[92vh]  rounded-xl w-[95%]  lg:w-[800px]" />
-        <div className="absolute top-0">
+      <div className="f-container-b">
+        {/* <img src={bg} alt="" className="w-[95%]" /> */}
+        <div className="f-container-b1">
           <form onSubmit={submit} className="px-8 pt-10 flex flex-col gap-5">
             <div className="flex flex-col lg:flex-row gap-5 lg:gap-10">
               <input

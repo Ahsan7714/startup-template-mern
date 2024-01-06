@@ -51,15 +51,15 @@ useEffect(() => {
 <Carasoul/>
 
       </div>
-      <div>
+      <div className="h-[70vh] lg:h-[100vh]">
         <img
           src={stripesbg}
           alt=""
-          className="relative h-[80vh] lg:h-[120vh] w-full"
+          className="relative   lg:h-[100vh] w-full"
         />
         <form
           onSubmit={submit}
-          className="flex flex-col items-center justify-center gap-14 absolute left-1/2 lg:top-[130%] top-[90%] transform -translate-x-1/2 -translate-y-1/2"
+          className="relative flex flex-col items-center justify-center gap-14  left-1/2   transform -translate-x-1/2 -translate-y-full lg:pb-32 pb-10 lg:-translate-y-full"
           >
           <h1 className="text-[#3f691f] text-[40px] font-extrabold ">
             CONTACT US

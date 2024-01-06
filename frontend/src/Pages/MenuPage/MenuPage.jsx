@@ -64,7 +64,7 @@ image:"puffle waffle"
   return (
     <div className="menu_page_container mt-28 flex items-start">
     <div className="drinks_options_mobile ">
-        <Link to={"/menu"}><h1>Series</h1></Link>
+        <Link to={"/menu"}><h1 >Series</h1></Link>
     <ul>
 
         {
@@ -101,7 +101,7 @@ image:"puffle waffle"
     </div>
     <div className="drinks_card_container">
         <h1>SERIES</h1>
-        <div className="inner_drinks_card_container ">
+        <div className="inner_drinks_card_container mx-5 lg:mx-0">
         {
             allAdminSeries.map((drink)=>{
                 return(
