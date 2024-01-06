@@ -77,7 +77,7 @@ useEffect(() => {
                 onChange={inputHandle}
                 value={state.name}
                 placeholder="Full Name"
-                className=" text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2  w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
+                className=" text-[14px] border-[1px] border-[#BDBDBD] px-4 py-3  w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
               />
               <input
               required
@@ -87,7 +87,7 @@ useEffect(() => {
                 onChange={inputHandle}
                 value={state.phone_no}
                 placeholder="Phone #"
-                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
+                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-3 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
               />
             </div>
             <div className="flex flex-col lg:flex-row gap-5 lg:gap-10">
@@ -99,7 +99,7 @@ useEffect(() => {
                 onChange={inputHandle}
                 value={state.email}
                 placeholder="Email address"
-                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
+                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-3 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
               />
               <input
               required
@@ -109,7 +109,7 @@ useEffect(() => {
                 onChange={inputHandle}
                 value={state.city}
                 placeholder="City/State of Residence"
-                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
+                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-3 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
               />
             </div>
             <div className="flex flex-col lg:flex-row gap-5 lg:gap-10">
@@ -121,7 +121,7 @@ useEffect(() => {
                 onChange={inputHandle}
                 value={state.occupation}
                 placeholder="Current Occupation"
-                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
+                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-3 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
               />
               <input
               required
@@ -131,7 +131,7 @@ useEffect(() => {
                 onChange={inputHandle}
                 value={state.netWorth}
                 placeholder="Net Worth"
-                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
+                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-3 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
               />
             </div>
             <div className="flex flex-col lg:flex-row gap-5 lg:gap-10">
@@ -143,7 +143,7 @@ useEffect(() => {
                 onChange={inputHandle}
                 value={state.liquidAssets}
                 placeholder="Liquid assests"
-                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
+                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-3 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
               />
               <input
               required
@@ -153,7 +153,7 @@ useEffect(() => {
                 onChange={inputHandle}
                 value={state.preferredLocation}
                 placeholder="Preferred Location"
-                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
+                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-3 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
               />
             </div>
             <div className="flex flex-col lg:flex-row gap-5 lg:gap-10">
@@ -175,7 +175,7 @@ useEffect(() => {
                 onChange={inputHandle}
                 value={state.howHear}
                 placeholder="How did you hear about us?"
-                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
+                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-3 w-[300px] lg:w-[350px] sm:w-[500px] rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F]"
               />
             </div>
             <div className="flex flex-col  gap-5 ">
@@ -188,9 +188,9 @@ useEffect(() => {
                 onChange={inputHandle}
                 value={state.notes}
                 placeholder="Notes"
-                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-2 w-full rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F] resize-none"
+                className="text-[14px] border-[1px] border-[#BDBDBD] px-4 py-3 w-full rounded-[4px] outline-none text-[#4F4F4F] placeholder-[#4F4F4F] resize-none"
               ></textarea>
-              <button className="bg-[#3f691f] text-white w-full rounded-[5px] py-2 text-[14px]">Submit</button>
+              <button className="bg-[#3f691f] text-white w-full rounded-[5px] py-3 text-[14px]">Submit</button>
             </div>
           </form>
         </div>

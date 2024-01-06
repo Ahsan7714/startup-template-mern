@@ -471,6 +471,10 @@ margin-top: 10px;
     }
 }
 @media screen and (max-width: 480px){
+    .about_us p{
+        width: 90%;
+    
+    }
     .specs_container{
         flex-direction: column;
     }
