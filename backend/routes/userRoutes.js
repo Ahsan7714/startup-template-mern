@@ -47,7 +47,7 @@ router.route("/search/location").get(searchLocation)
 router.route("/newsletter/add").post(addNewsLetter)
 
 // Logout 
-router.route("/logout").get(logout)
+router.route("/logout").get(isAuthenticatedUser,logout)
 router.route("/franchise/request").post(addRequest  )
 
 router.route("/contact-us").post(contactUs)
