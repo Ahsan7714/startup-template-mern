@@ -12,6 +12,8 @@ const AddDrinks = () => {
   const [seriesId, setSeriesId] = useState("")
   const [drinkName, setDrinkName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
 
 const dispatch=useDispatch()
 const {allOwnFranchiseSeries,allOwnFranchiseDrinks,isDrinkAdded,isDrinkDeleted,error,loading}=useSelector(state=>state.franchise)
@@ -27,11 +29,11 @@ const handleSeriesChange = (e) => {
 
   const handleFileChange = (e) => {
     const reader = new FileReader();
-    
+
     reader.onload = () => {
       if (reader.readyState === 2) {
-        // setAvatarPreview(reader.result);
-        setSelectedFile(reader.result);
+        setSelectedFile(reader.result); // Store the file itself
+        setImagePreview(reader.result);
       }
     };
 
@@ -61,6 +63,7 @@ useEffect(() => {
   if (isDrinkAdded) {
     setDrinkName("");
     setSelectedFile(null);
+    setImagePreview(null)
     toast.success("Drink Added Successfully");
   dispatch( clearState())
   dispatch(getAllOwnFranchiseDrinks())
@@ -97,7 +100,7 @@ if(loading){
   return (
     <div>
       <Sidebar />
-      <div className="ml-[24%] py-10">
+      <div className="ml-[24%] py-10 font-[Garet]">
         <div className="bg-white shadow-lg w-[90%] rounded-lg p-10">
           <h1 className="text-[#3f691f] text-[20px] font-bold pb-3">
             Add New Drink
@@ -149,6 +152,13 @@ if(loading){
                   onChange={handleFileChange}
                 />
               </div>
+              {imagePreview && (
+                  <img
+                    src={imagePreview}
+                    alt="Series Preview"
+                    className=" w-[150px] h-[100px] object-cover rounded-md"
+                  />
+                )}
             </div>
             </div>
             <div className="flex justify-between">
@@ -182,8 +192,8 @@ if(loading){
                 className="h-[300px] object-cover"
               />
             </div>
-            <div className="drink_card_title mt-2">
-              <h3>{drink.name}</h3>
+            <div className="drink_card_title my-4">
+              <h3 className=" text-[18px] capitalize">{drink.name}</h3>
             </div>
           </div>
         );
