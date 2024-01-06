@@ -182,6 +182,8 @@ export const login = createAsyncThunk(
                                             withCredentials:true
                                         }
                                         );
+                                        // remove token from cookie
+
                                         return fulfillWithValue(data);
                                         } catch (error) {
                                         return rejectWithValue(error.response.data);
