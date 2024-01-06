@@ -361,9 +361,6 @@ width: 80%;
         
     }
     .location_details_card_active{
-        background-color: #3f691f;
-        padding: 13px 5px;
-        border-radius: 20px;
-        color: white;
+        width: 80%;
     }
 }
