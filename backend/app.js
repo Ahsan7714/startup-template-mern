@@ -36,6 +36,10 @@ app.use(cors({
 
 const adminRoutes=require("./routes/adminRoutes")
 const userRoutes=require("./routes/userRoutes");
+// create a hello route
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 // Defining the routes
 app.use('/api/v1/admin',adminRoutes);
 app.use('/api/v1/user',userRoutes);
