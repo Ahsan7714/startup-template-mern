@@ -107,6 +107,11 @@ margin-bottom: 30px;
 }
 
 @media screen and (max-width:972px) {
+    .hero .hero_image{
+        height: 50vh;
+        width: 100%;
+        object-fit: cover;
+        }
     .instagram_carasoule_section img{
         width: 95%;
         height: 400px;
